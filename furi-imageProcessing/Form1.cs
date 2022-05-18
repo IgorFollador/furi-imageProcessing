@@ -127,5 +127,15 @@ namespace furi_imageProcessing
                 }
             }
         }//Fim do evento click btB
+
+        private void pbA_Click(object sender, EventArgs e)
+        {
+            btnA_Click(sender, e);
+        }
+
+        private void pbB_Click(object sender, EventArgs e)
+        {
+            btnB_Click(sender, e);
+        }
     }
 }

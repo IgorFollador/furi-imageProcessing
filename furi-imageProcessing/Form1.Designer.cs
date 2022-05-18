@@ -48,65 +48,80 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.pbA);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(9, 10);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(250, 275);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(188, 223);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image A";
             // 
             // pbA
             // 
-            this.pbA.Location = new System.Drawing.Point(16, 21);
+            this.pbA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbA.Location = new System.Drawing.Point(12, 17);
+            this.pbA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pbA.Name = "pbA";
-            this.pbA.Size = new System.Drawing.Size(215, 240);
+            this.pbA.Size = new System.Drawing.Size(161, 195);
             this.pbA.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbA.TabIndex = 0;
             this.pbA.TabStop = false;
+            this.pbA.Click += new System.EventHandler(this.pbA_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.pbB);
-            this.groupBox2.Location = new System.Drawing.Point(317, 12);
+            this.groupBox2.Location = new System.Drawing.Point(238, 10);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(250, 275);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(188, 223);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Image B";
             // 
             // pbB
             // 
-            this.pbB.Location = new System.Drawing.Point(16, 21);
+            this.pbB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbB.Location = new System.Drawing.Point(12, 17);
+            this.pbB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pbB.Name = "pbB";
-            this.pbB.Size = new System.Drawing.Size(215, 240);
+            this.pbB.Size = new System.Drawing.Size(161, 195);
             this.pbB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbB.TabIndex = 0;
             this.pbB.TabStop = false;
+            this.pbB.Click += new System.EventHandler(this.pbB_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pbResult);
-            this.groupBox3.Location = new System.Drawing.Point(611, 12);
+            this.groupBox3.Location = new System.Drawing.Point(458, 10);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(250, 275);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Size = new System.Drawing.Size(188, 223);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Result";
             // 
             // pbResult
             // 
-            this.pbResult.Location = new System.Drawing.Point(16, 21);
+            this.pbResult.Location = new System.Drawing.Point(12, 17);
+            this.pbResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pbResult.Name = "pbResult";
-            this.pbResult.Size = new System.Drawing.Size(215, 240);
+            this.pbResult.Size = new System.Drawing.Size(161, 195);
             this.pbResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbResult.TabIndex = 0;
             this.pbResult.TabStop = false;
             // 
             // btnA
             // 
-            this.btnA.Location = new System.Drawing.Point(64, 293);
+            this.btnA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnA.Location = new System.Drawing.Point(48, 238);
+            this.btnA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnA.Name = "btnA";
-            this.btnA.Size = new System.Drawing.Size(125, 30);
+            this.btnA.Size = new System.Drawing.Size(94, 24);
             this.btnA.TabIndex = 3;
             this.btnA.Text = "Load Image A";
             this.btnA.UseVisualStyleBackColor = true;
@@ -114,9 +129,11 @@
             // 
             // btnB
             // 
-            this.btnB.Location = new System.Drawing.Point(374, 293);
+            this.btnB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnB.Location = new System.Drawing.Point(280, 238);
+            this.btnB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnB.Name = "btnB";
-            this.btnB.Size = new System.Drawing.Size(125, 30);
+            this.btnB.Size = new System.Drawing.Size(94, 24);
             this.btnB.TabIndex = 4;
             this.btnB.Text = "Load Image B";
             this.btnB.UseVisualStyleBackColor = true;
@@ -128,14 +145,15 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 450);
+            this.ClientSize = new System.Drawing.Size(661, 366);
             this.Controls.Add(this.btnB);
             this.Controls.Add(this.btnA);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
