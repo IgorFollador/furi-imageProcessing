@@ -137,5 +137,71 @@ namespace furi_imageProcessing
         {
             btnB_Click(sender, e);
         }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            
+        }
+        private Bitmap resizeImage(Bitmap imgToResize)
+        {
+            Size size;
+            Size sizeA = new Size(img1.Width, img1.Height);
+            Size sizeB = new Size(img2.Width, img2.Height);
+            if (sizeA.Width > sizeB.Width && sizeA.Height > sizeB.Height) size = sizeA;
+            else size = sizeB;
+
+            return new Bitmap(imgToResize, size);
+        }
+
+        private void btnColV_Click(object sender, EventArgs e)
+        {
+            Bitmap[] images = new Bitmap[2];
+            images[0] = img1;
+            images[1] = img2;
+            try
+            {
+                imgR = collageVBitmap(images);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error add images",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap collageVBitmap(Bitmap[] images)
+        {
+            images[0] = resizeImage(images[0]);
+            images[1] = resizeImage(images[1]);
+            if (images.All(x => x.Width == images[0].Width) == false)
+            {
+                throw new InvalidOperationException("all images must have the same width");
+            }
+
+            var outputHeight = images.Sum(x => x.Height);
+            var outputWidth = images[0].Width;
+
+            var outputImage = new Bitmap(outputWidth, outputHeight);
+
+            using (var g = Graphics.FromImage(outputImage))
+            {
+                //set background color
+                g.Clear(System.Drawing.Color.Black);
+
+                //go through each image and draw it on the output image
+                int offset = 0;
+                foreach (System.Drawing.Bitmap image in images)
+                {
+                    g.DrawImage(image,
+                        new System.Drawing.Rectangle(0, offset, image.Width, image.Height)
+                    );
+                    offset += image.Height;
+                }
+            }
+            return new Bitmap(outputImage);
+        }
     }
 }
