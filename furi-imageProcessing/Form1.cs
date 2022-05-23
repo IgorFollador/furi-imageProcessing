@@ -1324,15 +1324,14 @@ namespace furi_imageProcessing
 
         private Bitmap generateImage()
         {
-            Bitmap image = new Bitmap(250, 250);
+            //By aybe - StackOverflow
+            Bitmap image = new Bitmap(100, 100, PixelFormat.Format8bppIndexed);
+            var bitmapData = image.LockBits(new Rectangle(Point.Empty, image.Size), ImageLockMode.ReadWrite, image.PixelFormat);
             Random random = new Random();
-            for (int i = 0; i < 125; ++i)
-            {
-                int x = random.Next(image.Width);
-                int y = random.Next(image.Height);
-                Color color = Color.FromArgb(255, 255, 255);
-                image.SetPixel(x, y, color);
-            }
+            byte[] buffer = new byte[image.Width * image.Height];
+            random.NextBytes(buffer);
+            System.Runtime.InteropServices.Marshal.Copy(buffer, 0, bitmapData.Scan0, buffer.Length);
+            image.UnlockBits(bitmapData);
             return image;
         }
 
