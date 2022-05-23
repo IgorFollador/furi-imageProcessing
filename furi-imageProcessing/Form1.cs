@@ -1402,5 +1402,20 @@ namespace furi_imageProcessing
                     MessageBoxIcon.Error);
             }
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            github();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            github();
+        }
+
+        private void github()
+        {
+            System.Diagnostics.Process.Start("https://www.github.com/IgorFollador/furi-imageProcessing");
+        }
     }
 }
