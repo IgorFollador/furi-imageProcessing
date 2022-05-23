@@ -21,6 +21,19 @@ namespace furi_imageProcessing
         private byte[,] vImg1B;
         private byte[,] vImg1A;
 
+        private Bitmap img2;
+        private byte[,] vImg2Gray;
+        private byte[,] vImg2R;
+        private byte[,] vImg2G;
+        private byte[,] vImg2B;
+        private byte[,] vImg2A;
+
+        private Bitmap imgR;
+        private byte[,] vImg3Gray;
+        private byte[,] vImg3R;
+        private byte[,] vImg3G;
+        private byte[,] vImg3B;
+        private byte[,] vImg3A;
         public Form1()
         {
             InitializeComponent();
@@ -842,9 +855,9 @@ namespace furi_imageProcessing
                     Color colorOut;
 
                     int grayScale = (int)((color.R * 0.3) + (color.G * 0.59) + (color.B * 0.11));
-                    color = Color.FromArgb(grayScale, grayScale, grayScale);
+                    colorOut = Color.FromArgb(grayScale, grayScale, grayScale);
 
-                    outputImage.SetPixel(x, y, color);
+                    outputImage.SetPixel(x, y, colorOut);
                 }
             }
 
@@ -1192,13 +1205,12 @@ namespace furi_imageProcessing
                 verifyImage(img1);
                 verifyImage(img2);
 
-                if(exportImage(imgR))
-                {
-                    MessageBox.Show("Success when exporting image",
-                       "Image result exported to executable directory",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Information);
-                } 
+                exportImage(imgR);
+
+                MessageBox.Show("Success when exporting image",
+                    "Image result exported to executable directory",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
                 
             }
             catch (Exception ex)
@@ -1233,7 +1245,7 @@ namespace furi_imageProcessing
                 return true;
             } catch (Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
         }
     
