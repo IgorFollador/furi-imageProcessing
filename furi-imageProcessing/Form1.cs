@@ -148,7 +148,7 @@ namespace furi_imageProcessing
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
-                    "Error add images",
+                    "Error adding images",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -166,13 +166,25 @@ namespace furi_imageProcessing
             {
                 for (y = 0; y < imgA.Height; y++)
                 {
-                    Color Color1 = imgA.GetPixel(x, y);
-                    Color Color2 = imgB.GetPixel(x, y);
-                    Color color = Color.FromArgb(Average(Color1.R, Color2.R), Average(Color1.G, Color2.G), Average(Color1.B, Color2.B));
+                    Color color1 = imgA.GetPixel(x, y);
+                    Color color2 = imgB.GetPixel(x, y);
+                    Color color;
+                    int R, G, B;
+                    if (color1 != color2)
+                    {
+                        R = color1.R + color2.R;
+                        G = color1.G + color2.G;
+                        B = color1.B + color2.B;
+
+                        if (R > 255) R = 255;
+                        if (G > 255) G = 255;
+                        if (B > 255) B = 255;
+                        color = Color.FromArgb(R, G, B);
+                    }
+                    else color = color1;
                     outputImage.SetPixel(x, y, color);
                 }
             }
-
             return outputImage;
         }
 
@@ -256,6 +268,95 @@ namespace furi_imageProcessing
         byte Average(byte a, byte b)
         {
             return (byte)((a + b) / 2);
+        }
+
+        private void btnSub_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                imgR = subImages(img1, img2);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error subtracting images",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap subImages(Bitmap img1, Bitmap img2)
+        {
+            Bitmap imgA = resizeImage(img1);
+            Bitmap imgB = resizeImage(img2);
+            Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
+
+            int x, y;
+
+            for (x = 0; x < imgA.Width; x++)
+            {
+                for (y = 0; y < imgA.Height; y++)
+                {
+                    Color color1 = imgA.GetPixel(x, y);
+                    Color color2 = imgB.GetPixel(x, y);
+                    Color color;
+                    int R, G, B;
+                    if (color1 != color2)
+                    {
+                        R = color1.R - color2.R;
+                        G = color1.G - color2.G;
+                        B = color1.B - color2.B;
+
+                        if (R < 0) R = 0;
+                        if (G < 0) G = 0;
+                        if (B < 0) B = 0;
+                        color = Color.FromArgb(R, G, B);
+                    }
+                    else color = color1;
+                    outputImage.SetPixel(x, y, color);
+                }
+            }
+            return outputImage;
+        }
+
+        private void btnAvg_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                imgR = avgImages(img1, img2);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error to division images",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap avgImages(Bitmap img1, Bitmap img2)
+        {
+            Bitmap imgA = resizeImage(img1);
+            Bitmap imgB = resizeImage(img2);
+            Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
+
+            int x, y;
+
+            for (x = 0; x < imgA.Width; x++)
+            {
+                for (y = 0; y < imgA.Height; y++)
+                {
+                    Color Color1 = imgA.GetPixel(x, y);
+                    Color Color2 = imgB.GetPixel(x, y);
+                    Color color = Color.FromArgb(Average(Color1.R, Color2.R), Average(Color1.G, Color2.G), Average(Color1.B, Color2.B));
+
+                    outputImage.SetPixel(x, y, color);
+                }
+            }
+
+            return outputImage;
         }
     }
 }

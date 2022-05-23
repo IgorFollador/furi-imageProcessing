@@ -322,6 +322,7 @@
             this.btnAvg.TabIndex = 5;
             this.btnAvg.Text = "Average";
             this.btnAvg.UseVisualStyleBackColor = true;
+            this.btnAvg.Click += new System.EventHandler(this.btnAvg_Click);
             // 
             // btnMult
             // 
@@ -350,6 +351,7 @@
             this.btnSub.TabIndex = 2;
             this.btnSub.Text = "Subtraction";
             this.btnSub.UseVisualStyleBackColor = true;
+            this.btnSub.Click += new System.EventHandler(this.btnSub_Click);
             // 
             // btnAdd
             // 
