@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pbA = new System.Windows.Forms.PictureBox();
             this.btnA = new System.Windows.Forms.Button();
@@ -38,23 +39,25 @@
             this.pbResult = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btnMirror = new System.Windows.Forms.Button();
             this.btnColV = new System.Windows.Forms.Button();
-            this.btnSub = new System.Windows.Forms.Button();
-            this.btnMult = new System.Windows.Forms.Button();
-            this.btnBld = new System.Windows.Forms.Button();
-            this.btnAvg = new System.Windows.Forms.Button();
-            this.bntDiv = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnNOT = new System.Windows.Forms.Button();
             this.btnOR = new System.Windows.Forms.Button();
             this.btnXOR = new System.Windows.Forms.Button();
             this.btnAND = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtBld = new System.Windows.Forms.TextBox();
+            this.txtMult = new System.Windows.Forms.TextBox();
+            this.txtDiv = new System.Windows.Forms.TextBox();
+            this.btnBld = new System.Windows.Forms.Button();
+            this.btnAvg = new System.Windows.Forms.Button();
+            this.btnMult = new System.Windows.Forms.Button();
+            this.bntDiv = new System.Windows.Forms.Button();
+            this.btnSub = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbA)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -62,9 +65,9 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).BeginInit();
             this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -143,12 +146,13 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.pbResult);
             this.groupBox3.Location = new System.Drawing.Point(467, 10);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(225, 225);
+            this.groupBox3.Size = new System.Drawing.Size(225, 250);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Result";
@@ -179,88 +183,35 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Tools";
             // 
-            // btnAdd
+            // groupBox7
             // 
-            this.btnAdd.Location = new System.Drawing.Point(6, 28);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(85, 23);
-            this.btnAdd.TabIndex = 1;
-            this.btnAdd.Text = "Addition";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.groupBox7.Controls.Add(this.btnMirror);
+            this.groupBox7.Controls.Add(this.btnColV);
+            this.groupBox7.Location = new System.Drawing.Point(501, 19);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(118, 141);
+            this.groupBox7.TabIndex = 6;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "More";
             // 
-            // groupBox5
+            // btnMirror
             // 
-            this.groupBox5.Controls.Add(this.textBox3);
-            this.groupBox5.Controls.Add(this.textBox2);
-            this.groupBox5.Controls.Add(this.textBox1);
-            this.groupBox5.Controls.Add(this.btnBld);
-            this.groupBox5.Controls.Add(this.btnAvg);
-            this.groupBox5.Controls.Add(this.btnMult);
-            this.groupBox5.Controls.Add(this.bntDiv);
-            this.groupBox5.Controls.Add(this.btnSub);
-            this.groupBox5.Controls.Add(this.btnAdd);
-            this.groupBox5.Location = new System.Drawing.Point(13, 19);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(255, 141);
-            this.groupBox5.TabIndex = 6;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Arithmetic Operations";
+            this.btnMirror.Location = new System.Drawing.Point(20, 78);
+            this.btnMirror.Name = "btnMirror";
+            this.btnMirror.Size = new System.Drawing.Size(75, 35);
+            this.btnMirror.TabIndex = 1;
+            this.btnMirror.Text = "Mirror";
+            this.btnMirror.UseVisualStyleBackColor = true;
             // 
             // btnColV
             // 
-            this.btnColV.Location = new System.Drawing.Point(21, 19);
+            this.btnColV.Location = new System.Drawing.Point(20, 28);
             this.btnColV.Name = "btnColV";
             this.btnColV.Size = new System.Drawing.Size(75, 35);
             this.btnColV.TabIndex = 0;
             this.btnColV.Text = "Vertical Collage";
             this.btnColV.UseVisualStyleBackColor = true;
             this.btnColV.Click += new System.EventHandler(this.btnColV_Click);
-            // 
-            // btnSub
-            // 
-            this.btnSub.Location = new System.Drawing.Point(6, 66);
-            this.btnSub.Name = "btnSub";
-            this.btnSub.Size = new System.Drawing.Size(85, 23);
-            this.btnSub.TabIndex = 2;
-            this.btnSub.Text = "Subtraction";
-            this.btnSub.UseVisualStyleBackColor = true;
-            // 
-            // btnMult
-            // 
-            this.btnMult.Location = new System.Drawing.Point(110, 66);
-            this.btnMult.Name = "btnMult";
-            this.btnMult.Size = new System.Drawing.Size(85, 23);
-            this.btnMult.TabIndex = 3;
-            this.btnMult.Text = "Multiplication";
-            this.btnMult.UseVisualStyleBackColor = true;
-            // 
-            // btnBld
-            // 
-            this.btnBld.Location = new System.Drawing.Point(110, 106);
-            this.btnBld.Name = "btnBld";
-            this.btnBld.Size = new System.Drawing.Size(85, 23);
-            this.btnBld.TabIndex = 6;
-            this.btnBld.Text = "Blending";
-            this.btnBld.UseVisualStyleBackColor = true;
-            // 
-            // btnAvg
-            // 
-            this.btnAvg.Location = new System.Drawing.Point(6, 106);
-            this.btnAvg.Name = "btnAvg";
-            this.btnAvg.Size = new System.Drawing.Size(85, 23);
-            this.btnAvg.TabIndex = 5;
-            this.btnAvg.Text = "Average";
-            this.btnAvg.UseVisualStyleBackColor = true;
-            // 
-            // bntDiv
-            // 
-            this.bntDiv.Location = new System.Drawing.Point(110, 28);
-            this.bntDiv.Name = "bntDiv";
-            this.bntDiv.Size = new System.Drawing.Size(85, 23);
-            this.bntDiv.TabIndex = 4;
-            this.bntDiv.Text = "Division";
-            this.bntDiv.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
@@ -311,39 +262,115 @@
             this.btnAND.Text = "AND";
             this.btnAND.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // groupBox5
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(201, 31);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(48, 20);
-            this.textBox1.TabIndex = 7;
+            this.groupBox5.Controls.Add(this.txtBld);
+            this.groupBox5.Controls.Add(this.txtMult);
+            this.groupBox5.Controls.Add(this.txtDiv);
+            this.groupBox5.Controls.Add(this.btnBld);
+            this.groupBox5.Controls.Add(this.btnAvg);
+            this.groupBox5.Controls.Add(this.btnMult);
+            this.groupBox5.Controls.Add(this.bntDiv);
+            this.groupBox5.Controls.Add(this.btnSub);
+            this.groupBox5.Controls.Add(this.btnAdd);
+            this.groupBox5.Location = new System.Drawing.Point(13, 19);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(255, 141);
+            this.groupBox5.TabIndex = 6;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Arithmetic Operations";
             // 
-            // textBox2
+            // txtBld
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Location = new System.Drawing.Point(201, 69);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(48, 20);
-            this.textBox2.TabIndex = 8;
+            this.txtBld.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBld.Location = new System.Drawing.Point(201, 106);
+            this.txtBld.Name = "txtBld";
+            this.txtBld.Size = new System.Drawing.Size(48, 20);
+            this.txtBld.TabIndex = 9;
             // 
-            // textBox3
+            // txtMult
             // 
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Location = new System.Drawing.Point(201, 106);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(48, 20);
-            this.textBox3.TabIndex = 9;
+            this.txtMult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMult.Location = new System.Drawing.Point(201, 69);
+            this.txtMult.Name = "txtMult";
+            this.txtMult.Size = new System.Drawing.Size(48, 20);
+            this.txtMult.TabIndex = 8;
             // 
-            // groupBox7
+            // txtDiv
             // 
-            this.groupBox7.Controls.Add(this.btnColV);
-            this.groupBox7.Location = new System.Drawing.Point(501, 19);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(118, 141);
-            this.groupBox7.TabIndex = 6;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "More";
+            this.txtDiv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDiv.Location = new System.Drawing.Point(201, 31);
+            this.txtDiv.Name = "txtDiv";
+            this.txtDiv.Size = new System.Drawing.Size(48, 20);
+            this.txtDiv.TabIndex = 7;
+            this.txtDiv.TextChanged += new System.EventHandler(this.txtDiv_TextChanged);
+            // 
+            // btnBld
+            // 
+            this.btnBld.Location = new System.Drawing.Point(110, 106);
+            this.btnBld.Name = "btnBld";
+            this.btnBld.Size = new System.Drawing.Size(85, 23);
+            this.btnBld.TabIndex = 6;
+            this.btnBld.Text = "Blending";
+            this.btnBld.UseVisualStyleBackColor = true;
+            // 
+            // btnAvg
+            // 
+            this.btnAvg.Location = new System.Drawing.Point(6, 106);
+            this.btnAvg.Name = "btnAvg";
+            this.btnAvg.Size = new System.Drawing.Size(85, 23);
+            this.btnAvg.TabIndex = 5;
+            this.btnAvg.Text = "Average";
+            this.btnAvg.UseVisualStyleBackColor = true;
+            // 
+            // btnMult
+            // 
+            this.btnMult.Location = new System.Drawing.Point(110, 66);
+            this.btnMult.Name = "btnMult";
+            this.btnMult.Size = new System.Drawing.Size(85, 23);
+            this.btnMult.TabIndex = 3;
+            this.btnMult.Text = "Multiplication";
+            this.btnMult.UseVisualStyleBackColor = true;
+            // 
+            // bntDiv
+            // 
+            this.bntDiv.Location = new System.Drawing.Point(110, 28);
+            this.bntDiv.Name = "bntDiv";
+            this.bntDiv.Size = new System.Drawing.Size(85, 23);
+            this.bntDiv.TabIndex = 4;
+            this.bntDiv.Text = "Division";
+            this.bntDiv.UseVisualStyleBackColor = true;
+            this.bntDiv.Click += new System.EventHandler(this.bntDiv_Click);
+            // 
+            // btnSub
+            // 
+            this.btnSub.Location = new System.Drawing.Point(6, 66);
+            this.btnSub.Name = "btnSub";
+            this.btnSub.Size = new System.Drawing.Size(85, 23);
+            this.btnSub.TabIndex = 2;
+            this.btnSub.Text = "Subtraction";
+            this.btnSub.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(6, 28);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(85, 23);
+            this.btnAdd.TabIndex = 1;
+            this.btnAdd.Text = "Addition";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // button1
+            // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Location = new System.Drawing.Point(116, 216);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 24);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Export Image";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -354,6 +381,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Image Processor";
@@ -364,10 +392,10 @@
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).EndInit();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -398,9 +426,11 @@
         private System.Windows.Forms.Button btnOR;
         private System.Windows.Forms.Button btnXOR;
         private System.Windows.Forms.Button btnAND;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBld;
+        private System.Windows.Forms.TextBox txtMult;
+        private System.Windows.Forms.TextBox txtDiv;
+        private System.Windows.Forms.Button btnMirror;
+        private System.Windows.Forms.Button button1;
     }
 }
 

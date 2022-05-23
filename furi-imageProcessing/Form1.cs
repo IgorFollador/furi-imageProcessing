@@ -140,17 +140,40 @@ namespace furi_imageProcessing
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                imgR = addImages(img1, img2);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error add images",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
-        private Bitmap resizeImage(Bitmap imgToResize)
-        {
-            Size size;
-            Size sizeA = new Size(img1.Width, img1.Height);
-            Size sizeB = new Size(img2.Width, img2.Height);
-            if (sizeA.Width > sizeB.Width && sizeA.Height > sizeB.Height) size = sizeA;
-            else size = sizeB;
 
-            return new Bitmap(imgToResize, size);
+        private Bitmap addImages(Bitmap img1, Bitmap img2)
+        {
+            Bitmap imgA = resizeImage(img1);
+            Bitmap imgB = resizeImage(img2);
+            Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
+
+            int x, y;
+
+            for (x = 0; x < imgA.Width; x++)
+            {
+                for (y = 0; y < imgA.Height; y++)
+                {
+                    Color Color1 = imgA.GetPixel(x, y);
+                    Color Color2 = imgB.GetPixel(x, y);
+                    Color color = Color.FromArgb(Average(Color1.R, Color2.R), Average(Color1.G, Color2.G), Average(Color1.B, Color2.B));
+                    outputImage.SetPixel(x, y, color);
+                }
+            }
+
+            return outputImage;
         }
 
         private void btnColV_Click(object sender, EventArgs e)
@@ -170,6 +193,33 @@ namespace furi_imageProcessing
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void txtDiv_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bntDiv_Click(object sender, EventArgs e)
+        {
+            string txt = txtDiv.Text;
+            if (!double.TryParse(txt, out double num) && txt != "")
+            {
+                MessageBox.Show("Only numbers", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            MessageBox.Show(txt, "Teste");
+        }
+
+        private Bitmap resizeImage(Bitmap imgToResize)
+        {
+            Size size;
+            Size sizeA = new Size(img1.Width, img1.Height);
+            Size sizeB = new Size(img2.Width, img2.Height);
+            if (sizeA.Width > sizeB.Width && sizeA.Height > sizeB.Height) size = sizeA;
+            else size = sizeB;
+
+            return new Bitmap(imgToResize, size);
         }
 
         private Bitmap collageVBitmap(Bitmap[] images)
@@ -202,6 +252,10 @@ namespace furi_imageProcessing
                 }
             }
             return new Bitmap(outputImage);
+        }
+        byte Average(byte a, byte b)
+        {
+            return (byte)((a + b) / 2);
         }
     }
 }
