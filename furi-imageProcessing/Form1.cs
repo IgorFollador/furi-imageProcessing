@@ -785,22 +785,22 @@ namespace furi_imageProcessing
 
                     int R, G, B;
 
-                    if (color.R == 255 && color.G == 255 && color.B == 255)
-                    {
-                        R = 0;
-                        G = 0;
-                        B = 0;
-                    }
-                    else
+                    if (color.R >= 128 && color.G >= 128 && color.B >= 128)
                     {
                         R = 255;
                         G = 255;
                         B = 255;
                     }
+                    else
+                    {
+                        R = 0;
+                        G = 0;
+                        B = 0;
+                    }
 
-                    color = Color.FromArgb(R, G, B);
+                    colorOut = Color.FromArgb(R, G, B);
 
-                    outputImage.SetPixel(x, y, color);
+                    outputImage.SetPixel(x, y, colorOut);
                 }
             }
 
@@ -940,6 +940,262 @@ namespace furi_imageProcessing
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void btnAND_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img1);
+                verifyImage(img2);
+
+                imgR = andImages(img1, img2);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error AND images",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap andImages(Bitmap img1, Bitmap img2)
+        {
+            Bitmap imgA = resizeImage(img1);
+            Bitmap imgB = resizeImage(img2);
+            imgA = toBinary(imgA);
+            imgB = toBinary(imgB);
+            Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
+
+            int x, y;
+
+            for (x = 0; x < imgA.Width; x++)
+            {
+                for (y = 0; y < imgA.Height; y++)
+                {
+                    Color color1 = imgA.GetPixel(x, y);
+                    Color color2 = imgB.GetPixel(x, y);
+                    Color color;
+
+                    int R, G, B;
+
+                    if(color1.R > 0 && color2.R > 0)
+                    {
+                        R = 255;
+                    } 
+                    else R = 0;
+
+                    if (color1.G > 0 && color2.G > 0)
+                    {
+                        G = 255;
+                    }
+                    else G = 0;
+                    if (color1.B > 0 && color2.B > 0)
+                    {
+                        B = 255;
+                    }
+                    else B = 0;
+                   
+                    color = Color.FromArgb(R, G, B);
+
+                    outputImage.SetPixel(x, y, color);
+                }
+            }
+            return outputImage;
+        }
+
+        private void btnOR_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img1);
+                verifyImage(img2);
+
+                imgR = orImages(img1, img2);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error OR images",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap orImages(Bitmap img1, Bitmap img2)
+        {
+            Bitmap imgA = resizeImage(img1);
+            Bitmap imgB = resizeImage(img2);
+            imgA = toBinary(imgA);
+            imgB = toBinary(imgB);
+            Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
+
+            int x, y;
+
+            for (x = 0; x < imgA.Width; x++)
+            {
+                for (y = 0; y < imgA.Height; y++)
+                {
+                    Color color1 = imgA.GetPixel(x, y);
+                    Color color2 = imgB.GetPixel(x, y);
+                    Color color;
+
+                    int R, G, B;
+
+                    if (color1.R > 0 || color2.R > 0)
+                    {
+                        R = 255;
+                    }
+                    else R = 0;
+
+                    if (color1.G > 0 || color2.G > 0)
+                    {
+                        G = 255;
+                    }
+                    else G = 0;
+                    if (color1.B > 0 || color2.B > 0)
+                    {
+                        B = 255;
+                    }
+                    else B = 0;
+
+                    color = Color.FromArgb(R, G, B);
+
+                    outputImage.SetPixel(x, y, color);
+                }
+            }
+            return outputImage;
+        }
+
+        private void btnXOR_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img1);
+                verifyImage(img2);
+
+                imgR = xorImages(img1, img2);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error XOR images",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap xorImages(Bitmap img1, Bitmap img2)
+        {
+            Bitmap imgA = resizeImage(img1);
+            Bitmap imgB = resizeImage(img2);
+            imgA = toBinary(imgA);
+            imgB = toBinary(imgB);
+            Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
+
+            int x, y;
+
+            for (x = 0; x < imgA.Width; x++)
+            {
+                for (y = 0; y < imgA.Height; y++)
+                {
+                    Color color1 = imgA.GetPixel(x, y);
+                    Color color2 = imgB.GetPixel(x, y);
+                    Color color;
+
+                    int R, G, B;
+
+                    if (color1.R > 0 ^ color2.R > 0)
+                    {
+                        R = 255;
+                    }
+                    else R = 0;
+
+                    if (color1.G > 0 ^ color2.G > 0)
+                    {
+                        G = 255;
+                    }
+                    else G = 0;
+                    if (color1.B > 0 ^ color2.B > 0)
+                    {
+                        B = 255;
+                    }
+                    else B = 0;
+
+                    color = Color.FromArgb(R, G, B);
+
+                    outputImage.SetPixel(x, y, color);
+                }
+            }
+            return outputImage;
+        }
+
+        private void btnNOT_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img1);
+                verifyImage(img2);
+
+                imgR = notImages(img1, img2);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error NOT images",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap notImages(Bitmap img1, Bitmap img2)
+        {
+            Bitmap imgA = resizeImage(img1);
+            Bitmap imgB = resizeImage(img2);
+            imgA = toBinary(imgA);
+            imgB = toBinary(imgB);
+            Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
+
+            int x, y;
+
+            for (x = 0; x < imgA.Width; x++)
+            {
+                for (y = 0; y < imgA.Height; y++)
+                {
+                    Color color1 = imgA.GetPixel(x, y);
+                    Color color2 = imgB.GetPixel(x, y);
+                    Color color;
+
+                    int R, G, B;
+
+                    if (!(color1.R > 0 && color2.R > 0))
+                    {
+                        R = 255;
+                    }
+                    else R = 0;
+
+                    if (!(color1.G > 0 && color2.G > 0))
+                    {
+                        G = 255;
+                    }
+                    else G = 0;
+                    if (!(color1.B > 0 && color2.B > 0))
+                    {
+                        B = 255;
+                    }
+                    else B = 0;
+
+                    color = Color.FromArgb(R, G, B);
+
+                    outputImage.SetPixel(x, y, color);
+                }
+            }
+            return outputImage;
         }
     }
 }

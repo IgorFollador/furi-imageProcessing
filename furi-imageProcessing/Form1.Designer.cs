@@ -406,6 +406,7 @@
             this.btnNOT.TabIndex = 5;
             this.btnNOT.Text = "NOT";
             this.btnNOT.UseVisualStyleBackColor = true;
+            this.btnNOT.Click += new System.EventHandler(this.btnNOT_Click);
             // 
             // btnOR
             // 
@@ -415,6 +416,7 @@
             this.btnOR.TabIndex = 4;
             this.btnOR.Text = "OR";
             this.btnOR.UseVisualStyleBackColor = true;
+            this.btnOR.Click += new System.EventHandler(this.btnOR_Click);
             // 
             // btnXOR
             // 
@@ -424,6 +426,7 @@
             this.btnXOR.TabIndex = 2;
             this.btnXOR.Text = "XOR";
             this.btnXOR.UseVisualStyleBackColor = true;
+            this.btnXOR.Click += new System.EventHandler(this.btnXOR_Click);
             // 
             // btnAND
             // 
@@ -433,6 +436,7 @@
             this.btnAND.TabIndex = 1;
             this.btnAND.Text = "AND";
             this.btnAND.UseVisualStyleBackColor = true;
+            this.btnAND.Click += new System.EventHandler(this.btnAND_Click);
             // 
             // groupBox5
             // 
