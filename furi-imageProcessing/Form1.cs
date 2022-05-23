@@ -330,7 +330,7 @@ namespace furi_imageProcessing
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
-                    "Error to division images",
+                    "Error averaging images",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
