@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Encoder = System.Drawing.Imaging.Encoder;
 
 namespace furi_imageProcessing
 {
@@ -19,21 +21,6 @@ namespace furi_imageProcessing
         private byte[,] vImg1B;
         private byte[,] vImg1A;
 
-
-        private Bitmap img2;
-        private byte[,] vImg2Gray;
-        private byte[,] vImg2R;
-        private byte[,] vImg2G;
-        private byte[,] vImg2B;
-        private byte[,] vImg2A;
-
-
-        private Bitmap imgR;
-        private byte[,] vImg3Gray;
-        private byte[,] vImg3R;
-        private byte[,] vImg3G;
-        private byte[,] vImg3B;
-        private byte[,] vImg3A;
         public Form1()
         {
             InitializeComponent();
@@ -1196,6 +1183,213 @@ namespace furi_imageProcessing
                 }
             }
             return outputImage;
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img1);
+                verifyImage(img2);
+
+                if(exportImage(imgR))
+                {
+                    MessageBox.Show("Success when exporting image",
+                       "Image result exported to executable directory",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Information);
+                } 
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Error export image",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private bool exportImage(Bitmap image)
+        {
+            try
+            {
+                ImageCodecInfo myImageCodecInfo;
+                Encoder myEncoder;
+                EncoderParameter myEncoderParameter;
+                EncoderParameters myEncoderParameters;
+
+                // Get an ImageCodecInfo object that represents the JPEG codec.
+                myImageCodecInfo = GetEncoderInfo("image/jpeg");
+
+                myEncoder = Encoder.Quality;
+
+                myEncoderParameters = new EncoderParameters(1);
+
+                // Save the bitmap as a JPEG file with quality level 100.
+                myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+                myEncoderParameters.Param[0] = myEncoderParameter;
+                image.Save("exported_result.jpg", myImageCodecInfo, myEncoderParameters);
+                return true;
+            } catch (Exception ex)
+            {
+                return false;
+            }
+        }
+    
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
+        }
+
+        private void btnMirror_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(imgR);
+
+                imgR = mirrorImages(imgR);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Mirror image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap mirrorImages(Bitmap image)
+        {
+            Bitmap outputImage = new Bitmap(image.Width * 2, image.Height);
+
+            int x, y;
+            int i = outputImage.Width - 1;
+
+            for (x = 0; x < image.Width; x++, i--)
+            {
+                for (y = 0; y < image.Height; y++)
+                {
+                    Color color = image.GetPixel(x, y);
+
+                    outputImage.SetPixel(x, y, color);
+                    outputImage.SetPixel(i, y, color);
+                }
+            }
+            return outputImage;
+        }
+
+        private void btnGenAndSum_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                img1 = generateImage();
+                pbA.Image = img1;
+
+                img2 = generateImage();
+                pbB.Image = imgR;
+
+                imgR = addImages(img1, img2);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Mirror image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap generateImage()
+        {
+            Bitmap image = new Bitmap(250, 250);
+            Random random = new Random();
+            for (int i = 0; i < 125; ++i)
+            {
+                int x = random.Next(image.Width);
+                int y = random.Next(image.Height);
+                Color color = Color.FromArgb(255, 255, 255);
+                image.SetPixel(x, y, color);
+            }
+            return image;
+        }
+
+        private void btnMirrorA_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img1);
+
+                img1 = mirrorImages(img1);
+                pbA.Image = img1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Mirror image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnMirrorB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img2);
+
+                img2 = mirrorImages(img2);
+                pbB.Image = img2;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Mirror image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnGenA_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                img1 = generateImage();
+                pbA.Image = img1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Mirror image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnGenB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                img2 = generateImage();
+                pbB.Image = img2;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Mirror image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
     }
 }

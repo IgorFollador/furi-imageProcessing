@@ -30,32 +30,39 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtMultA = new System.Windows.Forms.TextBox();
-            this.btnNotA = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btnGenA = new System.Windows.Forms.Button();
             this.btnMultA = new System.Windows.Forms.Button();
-            this.btnBinaryA = new System.Windows.Forms.Button();
-            this.btnGrayA = new System.Windows.Forms.Button();
-            this.pbA = new System.Windows.Forms.PictureBox();
-            this.btnA = new System.Windows.Forms.Button();
+            this.btnMirrorA = new System.Windows.Forms.Button();
             this.txtDivA = new System.Windows.Forms.TextBox();
             this.bntDivA = new System.Windows.Forms.Button();
+            this.txtMultA = new System.Windows.Forms.TextBox();
+            this.btnBinaryA = new System.Windows.Forms.Button();
+            this.btnGrayA = new System.Windows.Forms.Button();
+            this.btnNotA = new System.Windows.Forms.Button();
+            this.pbA = new System.Windows.Forms.PictureBox();
+            this.btnA = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtMultB = new System.Windows.Forms.TextBox();
-            this.pbB = new System.Windows.Forms.PictureBox();
-            this.btnNotB = new System.Windows.Forms.Button();
-            this.btnB = new System.Windows.Forms.Button();
-            this.btnMultB = new System.Windows.Forms.Button();
-            this.btnGrayB = new System.Windows.Forms.Button();
-            this.btnBinaryB = new System.Windows.Forms.Button();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btnGenB = new System.Windows.Forms.Button();
             this.btnDivB = new System.Windows.Forms.Button();
+            this.btnGrayB = new System.Windows.Forms.Button();
+            this.txtMultB = new System.Windows.Forms.TextBox();
+            this.btnBinaryB = new System.Windows.Forms.Button();
+            this.btnMultB = new System.Windows.Forms.Button();
+            this.btnMirrorB = new System.Windows.Forms.Button();
             this.txtDivB = new System.Windows.Forms.TextBox();
+            this.btnNotB = new System.Windows.Forms.Button();
+            this.pbB = new System.Windows.Forms.PictureBox();
+            this.btnB = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.pbResult = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.btnMirror = new System.Windows.Forms.Button();
+            this.btnGenAndSum = new System.Windows.Forms.Button();
             this.btnColV = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnNOT = new System.Windows.Forms.Button();
@@ -71,8 +78,10 @@
             this.btnSub = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbA)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbB)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).BeginInit();
@@ -84,45 +93,49 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtMultA);
-            this.groupBox1.Controls.Add(this.btnNotA);
-            this.groupBox1.Controls.Add(this.btnMultA);
-            this.groupBox1.Controls.Add(this.btnBinaryA);
-            this.groupBox1.Controls.Add(this.btnGrayA);
+            this.groupBox1.Controls.Add(this.groupBox8);
             this.groupBox1.Controls.Add(this.pbA);
             this.groupBox1.Controls.Add(this.btnA);
-            this.groupBox1.Controls.Add(this.txtDivA);
-            this.groupBox1.Controls.Add(this.bntDivA);
             this.groupBox1.Location = new System.Drawing.Point(9, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(225, 364);
+            this.groupBox1.Size = new System.Drawing.Size(225, 412);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image A";
             // 
-            // txtMultA
+            // groupBox8
             // 
-            this.txtMultA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMultA.Location = new System.Drawing.Point(106, 309);
-            this.txtMultA.Name = "txtMultA";
-            this.txtMultA.Size = new System.Drawing.Size(48, 20);
-            this.txtMultA.TabIndex = 11;
+            this.groupBox8.Controls.Add(this.btnGenA);
+            this.groupBox8.Controls.Add(this.btnMultA);
+            this.groupBox8.Controls.Add(this.btnMirrorA);
+            this.groupBox8.Controls.Add(this.txtDivA);
+            this.groupBox8.Controls.Add(this.bntDivA);
+            this.groupBox8.Controls.Add(this.txtMultA);
+            this.groupBox8.Controls.Add(this.btnBinaryA);
+            this.groupBox8.Controls.Add(this.btnGrayA);
+            this.groupBox8.Controls.Add(this.btnNotA);
+            this.groupBox8.Location = new System.Drawing.Point(15, 239);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(195, 168);
+            this.groupBox8.TabIndex = 6;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Edit";
             // 
-            // btnNotA
+            // btnGenA
             // 
-            this.btnNotA.Location = new System.Drawing.Point(15, 277);
-            this.btnNotA.Name = "btnNotA";
-            this.btnNotA.Size = new System.Drawing.Size(85, 23);
-            this.btnNotA.TabIndex = 10;
-            this.btnNotA.Text = "NOT";
-            this.btnNotA.UseVisualStyleBackColor = true;
-            this.btnNotA.Click += new System.EventHandler(this.btnNotA_Click);
+            this.btnGenA.Location = new System.Drawing.Point(107, 48);
+            this.btnGenA.Name = "btnGenA";
+            this.btnGenA.Size = new System.Drawing.Size(83, 23);
+            this.btnGenA.TabIndex = 13;
+            this.btnGenA.Text = "Generate";
+            this.btnGenA.UseVisualStyleBackColor = true;
+            this.btnGenA.Click += new System.EventHandler(this.btnGenA_Click);
             // 
             // btnMultA
             // 
-            this.btnMultA.Location = new System.Drawing.Point(15, 306);
+            this.btnMultA.Location = new System.Drawing.Point(6, 105);
             this.btnMultA.Name = "btnMultA";
             this.btnMultA.Size = new System.Drawing.Size(85, 23);
             this.btnMultA.TabIndex = 10;
@@ -130,9 +143,46 @@
             this.btnMultA.UseVisualStyleBackColor = true;
             this.btnMultA.Click += new System.EventHandler(this.btnMultA_Click);
             // 
+            // btnMirrorA
+            // 
+            this.btnMirrorA.Location = new System.Drawing.Point(107, 19);
+            this.btnMirrorA.Name = "btnMirrorA";
+            this.btnMirrorA.Size = new System.Drawing.Size(83, 23);
+            this.btnMirrorA.TabIndex = 12;
+            this.btnMirrorA.Text = "Mirror";
+            this.btnMirrorA.UseVisualStyleBackColor = true;
+            this.btnMirrorA.Click += new System.EventHandler(this.btnMirrorA_Click);
+            // 
+            // txtDivA
+            // 
+            this.txtDivA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDivA.Location = new System.Drawing.Point(97, 137);
+            this.txtDivA.Name = "txtDivA";
+            this.txtDivA.Size = new System.Drawing.Size(48, 20);
+            this.txtDivA.TabIndex = 7;
+            this.txtDivA.TextChanged += new System.EventHandler(this.txtDivA_TextChanged);
+            // 
+            // bntDivA
+            // 
+            this.bntDivA.Location = new System.Drawing.Point(6, 134);
+            this.bntDivA.Name = "bntDivA";
+            this.bntDivA.Size = new System.Drawing.Size(85, 23);
+            this.bntDivA.TabIndex = 4;
+            this.bntDivA.Text = "Division";
+            this.bntDivA.UseVisualStyleBackColor = true;
+            this.bntDivA.Click += new System.EventHandler(this.bntDivA_Click);
+            // 
+            // txtMultA
+            // 
+            this.txtMultA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMultA.Location = new System.Drawing.Point(97, 108);
+            this.txtMultA.Name = "txtMultA";
+            this.txtMultA.Size = new System.Drawing.Size(48, 20);
+            this.txtMultA.TabIndex = 11;
+            // 
             // btnBinaryA
             // 
-            this.btnBinaryA.Location = new System.Drawing.Point(15, 248);
+            this.btnBinaryA.Location = new System.Drawing.Point(6, 47);
             this.btnBinaryA.Name = "btnBinaryA";
             this.btnBinaryA.Size = new System.Drawing.Size(85, 23);
             this.btnBinaryA.TabIndex = 9;
@@ -142,13 +192,23 @@
             // 
             // btnGrayA
             // 
-            this.btnGrayA.Location = new System.Drawing.Point(15, 219);
+            this.btnGrayA.Location = new System.Drawing.Point(6, 18);
             this.btnGrayA.Name = "btnGrayA";
             this.btnGrayA.Size = new System.Drawing.Size(85, 23);
             this.btnGrayA.TabIndex = 8;
             this.btnGrayA.Text = "To Gray";
             this.btnGrayA.UseVisualStyleBackColor = true;
             this.btnGrayA.Click += new System.EventHandler(this.btnGrayA_Click);
+            // 
+            // btnNotA
+            // 
+            this.btnNotA.Location = new System.Drawing.Point(6, 76);
+            this.btnNotA.Name = "btnNotA";
+            this.btnNotA.Size = new System.Drawing.Size(85, 23);
+            this.btnNotA.TabIndex = 10;
+            this.btnNotA.Text = "NOT";
+            this.btnNotA.UseVisualStyleBackColor = true;
+            this.btnNotA.Click += new System.EventHandler(this.btnNotA_Click);
             // 
             // pbA
             // 
@@ -165,62 +225,134 @@
             // btnA
             // 
             this.btnA.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnA.Location = new System.Drawing.Point(116, 218);
+            this.btnA.Location = new System.Drawing.Point(127, 216);
             this.btnA.Margin = new System.Windows.Forms.Padding(2);
             this.btnA.Name = "btnA";
-            this.btnA.Size = new System.Drawing.Size(94, 24);
+            this.btnA.Size = new System.Drawing.Size(83, 23);
             this.btnA.TabIndex = 3;
             this.btnA.Text = "Load Image A";
             this.btnA.UseVisualStyleBackColor = true;
             this.btnA.Click += new System.EventHandler(this.btnA_Click);
             // 
-            // txtDivA
-            // 
-            this.txtDivA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDivA.Location = new System.Drawing.Point(106, 338);
-            this.txtDivA.Name = "txtDivA";
-            this.txtDivA.Size = new System.Drawing.Size(48, 20);
-            this.txtDivA.TabIndex = 7;
-            this.txtDivA.TextChanged += new System.EventHandler(this.txtDivA_TextChanged);
-            // 
-            // bntDivA
-            // 
-            this.bntDivA.Location = new System.Drawing.Point(15, 335);
-            this.bntDivA.Name = "bntDivA";
-            this.bntDivA.Size = new System.Drawing.Size(85, 23);
-            this.bntDivA.TabIndex = 4;
-            this.bntDivA.Text = "Division";
-            this.bntDivA.UseVisualStyleBackColor = true;
-            this.bntDivA.Click += new System.EventHandler(this.bntDivA_Click);
-            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.txtMultB);
+            this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Controls.Add(this.pbB);
-            this.groupBox2.Controls.Add(this.btnNotB);
             this.groupBox2.Controls.Add(this.btnB);
-            this.groupBox2.Controls.Add(this.btnMultB);
-            this.groupBox2.Controls.Add(this.btnGrayB);
-            this.groupBox2.Controls.Add(this.btnBinaryB);
-            this.groupBox2.Controls.Add(this.btnDivB);
-            this.groupBox2.Controls.Add(this.txtDivB);
             this.groupBox2.Location = new System.Drawing.Point(238, 10);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(225, 364);
+            this.groupBox2.Size = new System.Drawing.Size(225, 412);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Image B";
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.btnGenB);
+            this.groupBox9.Controls.Add(this.btnDivB);
+            this.groupBox9.Controls.Add(this.btnGrayB);
+            this.groupBox9.Controls.Add(this.txtMultB);
+            this.groupBox9.Controls.Add(this.btnBinaryB);
+            this.groupBox9.Controls.Add(this.btnMultB);
+            this.groupBox9.Controls.Add(this.btnMirrorB);
+            this.groupBox9.Controls.Add(this.txtDivB);
+            this.groupBox9.Controls.Add(this.btnNotB);
+            this.groupBox9.Location = new System.Drawing.Point(15, 239);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(195, 168);
+            this.groupBox9.TabIndex = 14;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Edit";
+            // 
+            // btnGenB
+            // 
+            this.btnGenB.Location = new System.Drawing.Point(106, 48);
+            this.btnGenB.Name = "btnGenB";
+            this.btnGenB.Size = new System.Drawing.Size(83, 23);
+            this.btnGenB.TabIndex = 15;
+            this.btnGenB.Text = "Generate";
+            this.btnGenB.UseVisualStyleBackColor = true;
+            this.btnGenB.Click += new System.EventHandler(this.btnGenB_Click);
+            // 
+            // btnDivB
+            // 
+            this.btnDivB.Location = new System.Drawing.Point(6, 135);
+            this.btnDivB.Name = "btnDivB";
+            this.btnDivB.Size = new System.Drawing.Size(85, 23);
+            this.btnDivB.TabIndex = 12;
+            this.btnDivB.Text = "Division";
+            this.btnDivB.UseVisualStyleBackColor = true;
+            this.btnDivB.Click += new System.EventHandler(this.btnDivB_Click);
+            // 
+            // btnGrayB
+            // 
+            this.btnGrayB.Location = new System.Drawing.Point(6, 19);
+            this.btnGrayB.Name = "btnGrayB";
+            this.btnGrayB.Size = new System.Drawing.Size(85, 23);
+            this.btnGrayB.TabIndex = 14;
+            this.btnGrayB.Text = "To Gray";
+            this.btnGrayB.UseVisualStyleBackColor = true;
+            this.btnGrayB.Click += new System.EventHandler(this.btnGrayB_Click);
+            // 
             // txtMultB
             // 
             this.txtMultB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMultB.Location = new System.Drawing.Point(106, 308);
+            this.txtMultB.Location = new System.Drawing.Point(97, 109);
             this.txtMultB.Name = "txtMultB";
             this.txtMultB.Size = new System.Drawing.Size(48, 20);
             this.txtMultB.TabIndex = 18;
             this.txtMultB.TextChanged += new System.EventHandler(this.txtMultB_TextChanged);
+            // 
+            // btnBinaryB
+            // 
+            this.btnBinaryB.Location = new System.Drawing.Point(6, 48);
+            this.btnBinaryB.Name = "btnBinaryB";
+            this.btnBinaryB.Size = new System.Drawing.Size(85, 23);
+            this.btnBinaryB.TabIndex = 15;
+            this.btnBinaryB.Text = "To Binary";
+            this.btnBinaryB.UseVisualStyleBackColor = true;
+            this.btnBinaryB.Click += new System.EventHandler(this.btnBinaryB_Click);
+            // 
+            // btnMultB
+            // 
+            this.btnMultB.Location = new System.Drawing.Point(6, 106);
+            this.btnMultB.Name = "btnMultB";
+            this.btnMultB.Size = new System.Drawing.Size(85, 23);
+            this.btnMultB.TabIndex = 17;
+            this.btnMultB.Text = "Multiplication";
+            this.btnMultB.UseVisualStyleBackColor = true;
+            this.btnMultB.Click += new System.EventHandler(this.btnMultB_Click);
+            // 
+            // btnMirrorB
+            // 
+            this.btnMirrorB.Location = new System.Drawing.Point(106, 19);
+            this.btnMirrorB.Name = "btnMirrorB";
+            this.btnMirrorB.Size = new System.Drawing.Size(83, 23);
+            this.btnMirrorB.TabIndex = 14;
+            this.btnMirrorB.Text = "Mirror";
+            this.btnMirrorB.UseVisualStyleBackColor = true;
+            this.btnMirrorB.Click += new System.EventHandler(this.btnMirrorB_Click);
+            // 
+            // txtDivB
+            // 
+            this.txtDivB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDivB.Location = new System.Drawing.Point(97, 138);
+            this.txtDivB.Name = "txtDivB";
+            this.txtDivB.Size = new System.Drawing.Size(48, 20);
+            this.txtDivB.TabIndex = 13;
+            this.txtDivB.TextChanged += new System.EventHandler(this.txtDivB_TextChanged);
+            // 
+            // btnNotB
+            // 
+            this.btnNotB.Location = new System.Drawing.Point(6, 77);
+            this.btnNotB.Name = "btnNotB";
+            this.btnNotB.Size = new System.Drawing.Size(85, 23);
+            this.btnNotB.TabIndex = 16;
+            this.btnNotB.Text = "NOT";
+            this.btnNotB.UseVisualStyleBackColor = true;
+            this.btnNotB.Click += new System.EventHandler(this.btnNotB_Click);
             // 
             // pbB
             // 
@@ -234,80 +366,21 @@
             this.pbB.TabStop = false;
             this.pbB.Click += new System.EventHandler(this.pbB_Click);
             // 
-            // btnNotB
-            // 
-            this.btnNotB.Location = new System.Drawing.Point(15, 276);
-            this.btnNotB.Name = "btnNotB";
-            this.btnNotB.Size = new System.Drawing.Size(85, 23);
-            this.btnNotB.TabIndex = 16;
-            this.btnNotB.Text = "NOT";
-            this.btnNotB.UseVisualStyleBackColor = true;
-            this.btnNotB.Click += new System.EventHandler(this.btnNotB_Click);
-            // 
             // btnB
             // 
             this.btnB.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnB.Location = new System.Drawing.Point(116, 218);
+            this.btnB.Location = new System.Drawing.Point(127, 216);
             this.btnB.Margin = new System.Windows.Forms.Padding(2);
             this.btnB.Name = "btnB";
-            this.btnB.Size = new System.Drawing.Size(94, 24);
+            this.btnB.Size = new System.Drawing.Size(83, 23);
             this.btnB.TabIndex = 4;
             this.btnB.Text = "Load Image B";
             this.btnB.UseVisualStyleBackColor = true;
             this.btnB.Click += new System.EventHandler(this.btnB_Click);
             // 
-            // btnMultB
-            // 
-            this.btnMultB.Location = new System.Drawing.Point(15, 305);
-            this.btnMultB.Name = "btnMultB";
-            this.btnMultB.Size = new System.Drawing.Size(85, 23);
-            this.btnMultB.TabIndex = 17;
-            this.btnMultB.Text = "Multiplication";
-            this.btnMultB.UseVisualStyleBackColor = true;
-            this.btnMultB.Click += new System.EventHandler(this.btnMultB_Click);
-            // 
-            // btnGrayB
-            // 
-            this.btnGrayB.Location = new System.Drawing.Point(15, 218);
-            this.btnGrayB.Name = "btnGrayB";
-            this.btnGrayB.Size = new System.Drawing.Size(85, 23);
-            this.btnGrayB.TabIndex = 14;
-            this.btnGrayB.Text = "To Gray";
-            this.btnGrayB.UseVisualStyleBackColor = true;
-            this.btnGrayB.Click += new System.EventHandler(this.btnGrayB_Click);
-            // 
-            // btnBinaryB
-            // 
-            this.btnBinaryB.Location = new System.Drawing.Point(15, 247);
-            this.btnBinaryB.Name = "btnBinaryB";
-            this.btnBinaryB.Size = new System.Drawing.Size(85, 23);
-            this.btnBinaryB.TabIndex = 15;
-            this.btnBinaryB.Text = "To Binary";
-            this.btnBinaryB.UseVisualStyleBackColor = true;
-            this.btnBinaryB.Click += new System.EventHandler(this.btnBinaryB_Click);
-            // 
-            // btnDivB
-            // 
-            this.btnDivB.Location = new System.Drawing.Point(15, 334);
-            this.btnDivB.Name = "btnDivB";
-            this.btnDivB.Size = new System.Drawing.Size(85, 23);
-            this.btnDivB.TabIndex = 12;
-            this.btnDivB.Text = "Division";
-            this.btnDivB.UseVisualStyleBackColor = true;
-            this.btnDivB.Click += new System.EventHandler(this.btnDivB_Click);
-            // 
-            // txtDivB
-            // 
-            this.txtDivB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDivB.Location = new System.Drawing.Point(106, 337);
-            this.txtDivB.Name = "txtDivB";
-            this.txtDivB.Size = new System.Drawing.Size(48, 20);
-            this.txtDivB.TabIndex = 13;
-            this.txtDivB.TextChanged += new System.EventHandler(this.txtDivB_TextChanged);
-            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.btnExport);
             this.groupBox3.Controls.Add(this.pbResult);
             this.groupBox3.Location = new System.Drawing.Point(467, 10);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
@@ -318,16 +391,17 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Result";
             // 
-            // button1
+            // btnExport
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(116, 219);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 24);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Export Image";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnExport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExport.Location = new System.Drawing.Point(116, 219);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(94, 24);
+            this.btnExport.TabIndex = 5;
+            this.btnExport.Text = "Export Image";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // pbResult
             // 
@@ -348,7 +422,7 @@
             this.groupBox4.Controls.Add(this.groupBox7);
             this.groupBox4.Controls.Add(this.groupBox6);
             this.groupBox4.Controls.Add(this.groupBox5);
-            this.groupBox4.Location = new System.Drawing.Point(24, 379);
+            this.groupBox4.Location = new System.Drawing.Point(24, 427);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(634, 166);
             this.groupBox4.TabIndex = 5;
@@ -358,6 +432,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.btnMirror);
+            this.groupBox7.Controls.Add(this.btnGenAndSum);
             this.groupBox7.Controls.Add(this.btnColV);
             this.groupBox7.Location = new System.Drawing.Point(501, 19);
             this.groupBox7.Name = "groupBox7";
@@ -368,16 +443,27 @@
             // 
             // btnMirror
             // 
-            this.btnMirror.Location = new System.Drawing.Point(20, 78);
+            this.btnMirror.Location = new System.Drawing.Point(20, 100);
             this.btnMirror.Name = "btnMirror";
             this.btnMirror.Size = new System.Drawing.Size(75, 35);
-            this.btnMirror.TabIndex = 1;
-            this.btnMirror.Text = "Mirror";
+            this.btnMirror.TabIndex = 2;
+            this.btnMirror.Text = "Mirror Result";
             this.btnMirror.UseVisualStyleBackColor = true;
+            this.btnMirror.Click += new System.EventHandler(this.btnMirror_Click);
+            // 
+            // btnGenAndSum
+            // 
+            this.btnGenAndSum.Location = new System.Drawing.Point(12, 58);
+            this.btnGenAndSum.Name = "btnGenAndSum";
+            this.btnGenAndSum.Size = new System.Drawing.Size(92, 35);
+            this.btnGenAndSum.TabIndex = 1;
+            this.btnGenAndSum.Text = "Generate and Sum Images";
+            this.btnGenAndSum.UseVisualStyleBackColor = true;
+            this.btnGenAndSum.Click += new System.EventHandler(this.btnGenAndSum_Click);
             // 
             // btnColV
             // 
-            this.btnColV.Location = new System.Drawing.Point(20, 28);
+            this.btnColV.Location = new System.Drawing.Point(20, 16);
             this.btnColV.Name = "btnColV";
             this.btnColV.Size = new System.Drawing.Size(75, 35);
             this.btnColV.TabIndex = 0;
@@ -541,7 +627,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(724, 557);
+            this.ClientSize = new System.Drawing.Size(724, 605);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -551,10 +637,12 @@
             this.Name = "Form1";
             this.Text = "Image Processor";
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbA)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbB)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).EndInit();
@@ -594,8 +682,8 @@
         private System.Windows.Forms.Button btnXOR;
         private System.Windows.Forms.Button btnAND;
         private System.Windows.Forms.TextBox txtDivA;
-        private System.Windows.Forms.Button btnMirror;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGenAndSum;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.TextBox txtBld;
         private System.Windows.Forms.Button btnGrayA;
         private System.Windows.Forms.TextBox txtMultA;
@@ -610,6 +698,13 @@
         private System.Windows.Forms.Button btnDivB;
         private System.Windows.Forms.TextBox txtDivB;
         private System.Windows.Forms.Button btnDiv;
+        private System.Windows.Forms.Button btnMirror;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Button btnGenA;
+        private System.Windows.Forms.Button btnMirrorA;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Button btnGenB;
+        private System.Windows.Forms.Button btnMirrorB;
     }
 }
 
