@@ -81,6 +81,7 @@ namespace furi_imageProcessing
             this.btnAdd = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.txtDiv = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbA)).BeginInit();
@@ -530,6 +531,7 @@ namespace furi_imageProcessing
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.txtDiv);
             this.groupBox5.Controls.Add(this.txtBld);
             this.groupBox5.Controls.Add(this.btnDiv);
             this.groupBox5.Controls.Add(this.btnBld);
@@ -560,7 +562,7 @@ namespace furi_imageProcessing
             "1"});
             this.txtBld.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.txtBld.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBld.Location = new System.Drawing.Point(201, 106);
+            this.txtBld.Location = new System.Drawing.Point(201, 108);
             this.txtBld.Name = "txtBld";
             this.txtBld.Size = new System.Drawing.Size(48, 20);
             this.txtBld.TabIndex = 9;
@@ -653,6 +655,29 @@ namespace furi_imageProcessing
             this.linkLabel1.Text = "GitHub";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // txtDiv
+            // 
+            this.txtDiv.AutoCompleteCustomSource.AddRange(new string[] {
+            "0",
+            "0.1",
+            "0.2",
+            "0.3",
+            "0.4",
+            "0.5",
+            "0.6",
+            "0.7",
+            "0.8",
+            "0.9",
+            "1"});
+            this.txtDiv.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.txtDiv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDiv.Location = new System.Drawing.Point(201, 30);
+            this.txtDiv.Name = "txtDiv";
+            this.txtDiv.Size = new System.Drawing.Size(48, 20);
+            this.txtDiv.TabIndex = 13;
+            this.txtDiv.Tag = "";
+            this.txtDiv.TextChanged += new System.EventHandler(this.txtDiv_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -740,6 +765,7 @@ namespace furi_imageProcessing
         private System.Windows.Forms.Button btnMirrorB;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.TextBox txtDiv;
     }
 }
 

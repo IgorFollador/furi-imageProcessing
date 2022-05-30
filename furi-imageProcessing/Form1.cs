@@ -271,7 +271,7 @@ namespace furi_imageProcessing
             return outputImage;
         }
 
-        private Bitmap divImages(Bitmap img1, Bitmap img2)
+        private Bitmap divImages(Bitmap img1, Bitmap img2, int num)
         {
             Bitmap imgA = resizeImage(img1);
             Bitmap imgB = resizeImage(img2);
@@ -289,13 +289,9 @@ namespace furi_imageProcessing
                     Color color;
                     int R, G, B;
 
-                    if (R2 == 0) R2 = 1;
-                    if (G2 == 0) G2 = 1;
-                    if (B2 == 0) B2 = 1;
-
-                    R = (int)(color1.R / R2);
-                    G = (int)(color1.G / G2);
-                    B = (int)(color1.B / B2);
+                    R = (int)(color1.R + color2.R) / num;
+                    G = (int)(color1.G + color2.G) / num;
+                    B = (int)(color1.B + color2.B) / num;
 
                     if (R < 0) R = 0;
                     else if (R > 255) R = 255;
@@ -599,8 +595,8 @@ namespace furi_imageProcessing
 
         private void btnDiv_Click(object sender, EventArgs e)
         {
-            /*string txt = txtDiv.Text;
-            if (txt == "") txt = "1";
+            string txt = txtDiv.Text;
+            if (txt == "") txt = "2";
             else if (!double.TryParse(txt, out double num))
             {
                 MessageBox.Show("Only numbers", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -610,13 +606,13 @@ namespace furi_imageProcessing
             {
                 MessageBox.Show("Please insert a value in range 1 - 255", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            }*/
+            }
 
             try
             {
                 verifyImage(img1);
                 verifyImage(img2);
-                imgR = divImages(img1, img2);
+                imgR = divImages(img1, img2, int.Parse(txt));
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -1325,7 +1321,7 @@ namespace furi_imageProcessing
         private Bitmap generateImage()
         {
             //By aybe - StackOverflow
-            Bitmap image = new Bitmap(100, 100, PixelFormat.Format8bppIndexed);
+            Bitmap image = new Bitmap(10, 10, PixelFormat.Format8bppIndexed);
             var bitmapData = image.LockBits(new Rectangle(Point.Empty, image.Size), ImageLockMode.ReadWrite, image.PixelFormat);
             Random random = new Random();
             byte[] buffer = new byte[image.Width * image.Height];
@@ -1416,6 +1412,11 @@ namespace furi_imageProcessing
         private void github()
         {
             System.Diagnostics.Process.Start("https://www.github.com/IgorFollador/furi-imageProcessing");
+        }
+
+        private void txtDiv_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
