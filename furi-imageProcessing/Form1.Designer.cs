@@ -30,6 +30,9 @@ namespace furi_imageProcessing
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -72,6 +75,7 @@ namespace furi_imageProcessing
             this.btnXOR = new System.Windows.Forms.Button();
             this.btnAND = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtDiv = new System.Windows.Forms.TextBox();
             this.txtBld = new System.Windows.Forms.TextBox();
             this.btnDiv = new System.Windows.Forms.Button();
             this.btnBld = new System.Windows.Forms.Button();
@@ -81,7 +85,9 @@ namespace furi_imageProcessing
             this.btnAdd = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.txtDiv = new System.Windows.Forms.TextBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.txtBinA = new System.Windows.Forms.TextBox();
+            this.txtBinB = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbA)).BeginInit();
@@ -94,6 +100,7 @@ namespace furi_imageProcessing
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -112,15 +119,16 @@ namespace furi_imageProcessing
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.txtBinA);
             this.groupBox8.Controls.Add(this.btnGenA);
             this.groupBox8.Controls.Add(this.btnMultA);
+            this.groupBox8.Controls.Add(this.btnNotA);
             this.groupBox8.Controls.Add(this.btnMirrorA);
             this.groupBox8.Controls.Add(this.txtDivA);
             this.groupBox8.Controls.Add(this.bntDivA);
             this.groupBox8.Controls.Add(this.txtMultA);
             this.groupBox8.Controls.Add(this.btnBinaryA);
             this.groupBox8.Controls.Add(this.btnGrayA);
-            this.groupBox8.Controls.Add(this.btnNotA);
             this.groupBox8.Location = new System.Drawing.Point(15, 239);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(195, 168);
@@ -180,14 +188,14 @@ namespace furi_imageProcessing
             // txtMultA
             // 
             this.txtMultA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMultA.Location = new System.Drawing.Point(97, 108);
+            this.txtMultA.Location = new System.Drawing.Point(97, 105);
             this.txtMultA.Name = "txtMultA";
             this.txtMultA.Size = new System.Drawing.Size(48, 20);
             this.txtMultA.TabIndex = 11;
             // 
             // btnBinaryA
             // 
-            this.btnBinaryA.Location = new System.Drawing.Point(6, 47);
+            this.btnBinaryA.Location = new System.Drawing.Point(6, 76);
             this.btnBinaryA.Name = "btnBinaryA";
             this.btnBinaryA.Size = new System.Drawing.Size(85, 23);
             this.btnBinaryA.TabIndex = 9;
@@ -197,7 +205,7 @@ namespace furi_imageProcessing
             // 
             // btnGrayA
             // 
-            this.btnGrayA.Location = new System.Drawing.Point(6, 18);
+            this.btnGrayA.Location = new System.Drawing.Point(6, 48);
             this.btnGrayA.Name = "btnGrayA";
             this.btnGrayA.Size = new System.Drawing.Size(85, 23);
             this.btnGrayA.TabIndex = 8;
@@ -207,7 +215,7 @@ namespace furi_imageProcessing
             // 
             // btnNotA
             // 
-            this.btnNotA.Location = new System.Drawing.Point(6, 76);
+            this.btnNotA.Location = new System.Drawing.Point(6, 21);
             this.btnNotA.Name = "btnNotA";
             this.btnNotA.Size = new System.Drawing.Size(85, 23);
             this.btnNotA.TabIndex = 10;
@@ -255,15 +263,16 @@ namespace furi_imageProcessing
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.txtBinB);
             this.groupBox9.Controls.Add(this.btnGenB);
             this.groupBox9.Controls.Add(this.btnDivB);
+            this.groupBox9.Controls.Add(this.btnNotB);
             this.groupBox9.Controls.Add(this.btnGrayB);
             this.groupBox9.Controls.Add(this.txtMultB);
             this.groupBox9.Controls.Add(this.btnBinaryB);
             this.groupBox9.Controls.Add(this.btnMultB);
             this.groupBox9.Controls.Add(this.btnMirrorB);
             this.groupBox9.Controls.Add(this.txtDivB);
-            this.groupBox9.Controls.Add(this.btnNotB);
             this.groupBox9.Location = new System.Drawing.Point(15, 239);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(195, 168);
@@ -293,7 +302,7 @@ namespace furi_imageProcessing
             // 
             // btnGrayB
             // 
-            this.btnGrayB.Location = new System.Drawing.Point(6, 19);
+            this.btnGrayB.Location = new System.Drawing.Point(6, 50);
             this.btnGrayB.Name = "btnGrayB";
             this.btnGrayB.Size = new System.Drawing.Size(85, 23);
             this.btnGrayB.TabIndex = 14;
@@ -312,7 +321,7 @@ namespace furi_imageProcessing
             // 
             // btnBinaryB
             // 
-            this.btnBinaryB.Location = new System.Drawing.Point(6, 48);
+            this.btnBinaryB.Location = new System.Drawing.Point(6, 79);
             this.btnBinaryB.Name = "btnBinaryB";
             this.btnBinaryB.Size = new System.Drawing.Size(85, 23);
             this.btnBinaryB.TabIndex = 15;
@@ -351,7 +360,7 @@ namespace furi_imageProcessing
             // 
             // btnNotB
             // 
-            this.btnNotB.Location = new System.Drawing.Point(6, 77);
+            this.btnNotB.Location = new System.Drawing.Point(6, 21);
             this.btnNotB.Name = "btnNotB";
             this.btnNotB.Size = new System.Drawing.Size(85, 23);
             this.btnNotB.TabIndex = 16;
@@ -546,6 +555,29 @@ namespace furi_imageProcessing
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Arithmetic Operations";
             // 
+            // txtDiv
+            // 
+            this.txtDiv.AutoCompleteCustomSource.AddRange(new string[] {
+            "0",
+            "0.1",
+            "0.2",
+            "0.3",
+            "0.4",
+            "0.5",
+            "0.6",
+            "0.7",
+            "0.8",
+            "0.9",
+            "1"});
+            this.txtDiv.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.txtDiv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDiv.Location = new System.Drawing.Point(201, 30);
+            this.txtDiv.Name = "txtDiv";
+            this.txtDiv.Size = new System.Drawing.Size(48, 20);
+            this.txtDiv.TabIndex = 13;
+            this.txtDiv.Tag = "";
+            this.txtDiv.TextChanged += new System.EventHandler(this.txtDiv_TextChanged);
+            // 
             // txtBld
             // 
             this.txtBld.AutoCompleteCustomSource.AddRange(new string[] {
@@ -655,34 +687,44 @@ namespace furi_imageProcessing
             this.linkLabel1.Text = "GitHub";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // txtDiv
+            // chart1
             // 
-            this.txtDiv.AutoCompleteCustomSource.AddRange(new string[] {
-            "0",
-            "0.1",
-            "0.2",
-            "0.3",
-            "0.4",
-            "0.5",
-            "0.6",
-            "0.7",
-            "0.8",
-            "0.9",
-            "1"});
-            this.txtDiv.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.txtDiv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDiv.Location = new System.Drawing.Point(201, 30);
-            this.txtDiv.Name = "txtDiv";
-            this.txtDiv.Size = new System.Drawing.Size(48, 20);
-            this.txtDiv.TabIndex = 13;
-            this.txtDiv.Tag = "";
-            this.txtDiv.TextChanged += new System.EventHandler(this.txtDiv_TextChanged);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(731, 49);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(364, 173);
+            this.chart1.TabIndex = 8;
+            this.chart1.Text = "chart1";
+            // 
+            // txtBinA
+            // 
+            this.txtBinA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBinA.Location = new System.Drawing.Point(97, 77);
+            this.txtBinA.Name = "txtBinA";
+            this.txtBinA.Size = new System.Drawing.Size(48, 20);
+            this.txtBinA.TabIndex = 14;
+            // 
+            // txtBinB
+            // 
+            this.txtBinB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBinB.Location = new System.Drawing.Point(97, 81);
+            this.txtBinB.Name = "txtBinB";
+            this.txtBinB.Size = new System.Drawing.Size(48, 20);
+            this.txtBinB.TabIndex = 15;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(701, 605);
+            this.ClientSize = new System.Drawing.Size(1121, 605);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox4);
@@ -708,6 +750,7 @@ namespace furi_imageProcessing
             this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -766,6 +809,9 @@ namespace furi_imageProcessing
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.TextBox txtDiv;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.TextBox txtBinA;
+        private System.Windows.Forms.TextBox txtBinB;
     }
 }
 

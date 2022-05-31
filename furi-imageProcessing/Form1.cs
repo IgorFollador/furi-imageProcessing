@@ -751,10 +751,23 @@ namespace furi_imageProcessing
 
         private void btnBinaryA_Click(object sender, EventArgs e)
         {
+            string txt = txtBinA.Text;
+            if (txt == "") txt = "0.5";
+            else if (!double.TryParse(txt, out double num))
+            {
+                MessageBox.Show("Only numbers", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (num <= 0 || num > 1)
+            {
+                MessageBox.Show("Please insert a value in range 0.0 - 1.0", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             try
             {
                 verifyImage(img1);
-                img1 = toBinary(img1);
+                img1 = toBinary(img1, double.Parse(txt));
                 pbA.Image = img1;
             }
             catch (Exception ex)
@@ -766,11 +779,12 @@ namespace furi_imageProcessing
             }
         }
 
-        private Bitmap toBinary(Bitmap image)
+        private Bitmap toBinary(Bitmap image, double thresh)
         {
             Bitmap outputImage = new Bitmap(image.Width, image.Height);
 
             int x, y;
+            double thresold = 255 * thresh;
 
             for (x = 0; x < image.Width; x++)
             {
@@ -781,7 +795,7 @@ namespace furi_imageProcessing
 
                     int R, G, B;
 
-                    if (color.R >= 128 && color.G >= 128 && color.B >= 128)
+                    if (color.R >= thresold && color.G >= thresold && color.B >= thresold)
                     {
                         R = 255;
                         G = 255;
@@ -805,10 +819,23 @@ namespace furi_imageProcessing
 
         private void btnBinaryB_Click(object sender, EventArgs e)
         {
+            string txt = txtBinB.Text;
+            if (txt == "") txt = "0.5";
+            else if (!double.TryParse(txt, out double num))
+            {
+                MessageBox.Show("Only numbers", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (num <= 0 || num > 1)
+            {
+                MessageBox.Show("Please insert a value in range 0.0 - 1.0", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             try
             {
                 verifyImage(img2);
-                img2 = toBinary(img2);
+                img2 = toBinary(img2, double.Parse(txt));
                 pbB.Image = img2;
             }
             catch (Exception ex)
@@ -961,8 +988,8 @@ namespace furi_imageProcessing
         {
             Bitmap imgA = resizeImage(img1);
             Bitmap imgB = resizeImage(img2);
-            imgA = toBinary(imgA);
-            imgB = toBinary(imgB);
+            imgA = toBinary(imgA, 0.5);
+            imgB = toBinary(imgB, 0.5);
             Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
 
             int x, y;
@@ -1025,8 +1052,8 @@ namespace furi_imageProcessing
         {
             Bitmap imgA = resizeImage(img1);
             Bitmap imgB = resizeImage(img2);
-            imgA = toBinary(imgA);
-            imgB = toBinary(imgB);
+            imgA = toBinary(imgA, 0.5);
+            imgB = toBinary(imgB, 0.5);
             Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
 
             int x, y;
@@ -1089,8 +1116,8 @@ namespace furi_imageProcessing
         {
             Bitmap imgA = resizeImage(img1);
             Bitmap imgB = resizeImage(img2);
-            imgA = toBinary(imgA);
-            imgB = toBinary(imgB);
+            imgA = toBinary(imgA, 0.5);
+            imgB = toBinary(imgB, 0.5);
             Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
 
             int x, y;
@@ -1153,8 +1180,8 @@ namespace furi_imageProcessing
         {
             Bitmap imgA = resizeImage(img1);
             Bitmap imgB = resizeImage(img2);
-            imgA = toBinary(imgA);
-            imgB = toBinary(imgB);
+            imgA = toBinary(imgA, 0.5);
+            imgB = toBinary(imgB, 0.5);
             Bitmap outputImage = new Bitmap(imgA.Width, imgB.Height);
 
             int x, y;
