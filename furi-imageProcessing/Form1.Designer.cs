@@ -31,9 +31,9 @@ namespace furi_imageProcessing
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnRecoveryA = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -189,7 +189,7 @@ namespace furi_imageProcessing
             this.btnNotA.Name = "btnNotA";
             this.btnNotA.Size = new System.Drawing.Size(85, 23);
             this.btnNotA.TabIndex = 10;
-            this.btnNotA.Text = "NOT";
+            this.btnNotA.Text = "Negative";
             this.btnNotA.UseVisualStyleBackColor = true;
             this.btnNotA.Click += new System.EventHandler(this.btnNotA_Click);
             // 
@@ -372,7 +372,7 @@ namespace furi_imageProcessing
             this.btnNotB.Name = "btnNotB";
             this.btnNotB.Size = new System.Drawing.Size(85, 23);
             this.btnNotB.TabIndex = 16;
-            this.btnNotB.Text = "NOT";
+            this.btnNotB.Text = "Negative";
             this.btnNotB.UseVisualStyleBackColor = true;
             this.btnNotB.Click += new System.EventHandler(this.btnNotB_Click);
             // 
@@ -782,17 +782,17 @@ namespace furi_imageProcessing
             // 
             // chart1
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea6);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Cursor = System.Windows.Forms.Cursors.Default;
-            legend6.Name = "Legend1";
-            this.chart1.Legends.Add(legend6);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(710, 420);
             this.chart1.Name = "chart1";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chart1.Series.Add(series6);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(364, 173);
             this.chart1.TabIndex = 8;
             // 
