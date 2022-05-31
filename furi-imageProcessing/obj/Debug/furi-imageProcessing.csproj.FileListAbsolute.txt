@@ -20,3 +20,4 @@ D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Debug\furi-ima
 D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Debug\furi-imageProcessing.csproj.CoreCompileInputs.cache
 D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Debug\furi-imageProcessing.exe
 D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Debug\furi-imageProcessing.pdb
+D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Debug\furi_imageProcessing.Form2.resources
