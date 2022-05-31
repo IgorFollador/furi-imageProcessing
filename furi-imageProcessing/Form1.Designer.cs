@@ -30,34 +30,37 @@ namespace furi_imageProcessing
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.txtBinA = new System.Windows.Forms.TextBox();
             this.btnGenA = new System.Windows.Forms.Button();
             this.btnMultA = new System.Windows.Forms.Button();
+            this.btnNotA = new System.Windows.Forms.Button();
             this.btnMirrorA = new System.Windows.Forms.Button();
             this.txtDivA = new System.Windows.Forms.TextBox();
             this.bntDivA = new System.Windows.Forms.Button();
             this.txtMultA = new System.Windows.Forms.TextBox();
             this.btnBinaryA = new System.Windows.Forms.Button();
             this.btnGrayA = new System.Windows.Forms.Button();
-            this.btnNotA = new System.Windows.Forms.Button();
             this.pbA = new System.Windows.Forms.PictureBox();
             this.btnA = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.txtBinB = new System.Windows.Forms.TextBox();
             this.btnGenB = new System.Windows.Forms.Button();
             this.btnDivB = new System.Windows.Forms.Button();
+            this.btnNotB = new System.Windows.Forms.Button();
             this.btnGrayB = new System.Windows.Forms.Button();
             this.txtMultB = new System.Windows.Forms.TextBox();
             this.btnBinaryB = new System.Windows.Forms.Button();
             this.btnMultB = new System.Windows.Forms.Button();
             this.btnMirrorB = new System.Windows.Forms.Button();
             this.txtDivB = new System.Windows.Forms.TextBox();
-            this.btnNotB = new System.Windows.Forms.Button();
             this.pbB = new System.Windows.Forms.PictureBox();
             this.btnB = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -86,8 +89,8 @@ namespace furi_imageProcessing
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.txtBinA = new System.Windows.Forms.TextBox();
-            this.txtBinB = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbA)).BeginInit();
@@ -105,9 +108,11 @@ namespace furi_imageProcessing
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.groupBox8);
             this.groupBox1.Controls.Add(this.pbA);
             this.groupBox1.Controls.Add(this.btnA);
+            this.groupBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.groupBox1.Location = new System.Drawing.Point(9, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
@@ -116,6 +121,16 @@ namespace furi_imageProcessing
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image A";
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(15, 189);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.TabIndex = 9;
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
@@ -136,6 +151,14 @@ namespace furi_imageProcessing
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Edit";
             // 
+            // txtBinA
+            // 
+            this.txtBinA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBinA.Location = new System.Drawing.Point(97, 77);
+            this.txtBinA.Name = "txtBinA";
+            this.txtBinA.Size = new System.Drawing.Size(48, 20);
+            this.txtBinA.TabIndex = 14;
+            // 
             // btnGenA
             // 
             this.btnGenA.Location = new System.Drawing.Point(107, 48);
@@ -155,6 +178,16 @@ namespace furi_imageProcessing
             this.btnMultA.Text = "Multiplication";
             this.btnMultA.UseVisualStyleBackColor = true;
             this.btnMultA.Click += new System.EventHandler(this.btnMultA_Click);
+            // 
+            // btnNotA
+            // 
+            this.btnNotA.Location = new System.Drawing.Point(6, 21);
+            this.btnNotA.Name = "btnNotA";
+            this.btnNotA.Size = new System.Drawing.Size(85, 23);
+            this.btnNotA.TabIndex = 10;
+            this.btnNotA.Text = "NOT";
+            this.btnNotA.UseVisualStyleBackColor = true;
+            this.btnNotA.Click += new System.EventHandler(this.btnNotA_Click);
             // 
             // btnMirrorA
             // 
@@ -213,16 +246,6 @@ namespace furi_imageProcessing
             this.btnGrayA.UseVisualStyleBackColor = true;
             this.btnGrayA.Click += new System.EventHandler(this.btnGrayA_Click);
             // 
-            // btnNotA
-            // 
-            this.btnNotA.Location = new System.Drawing.Point(6, 21);
-            this.btnNotA.Name = "btnNotA";
-            this.btnNotA.Size = new System.Drawing.Size(85, 23);
-            this.btnNotA.TabIndex = 10;
-            this.btnNotA.Text = "NOT";
-            this.btnNotA.UseVisualStyleBackColor = true;
-            this.btnNotA.Click += new System.EventHandler(this.btnNotA_Click);
-            // 
             // pbA
             // 
             this.pbA.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -249,6 +272,7 @@ namespace furi_imageProcessing
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Controls.Add(this.pbB);
             this.groupBox2.Controls.Add(this.btnB);
@@ -280,6 +304,14 @@ namespace furi_imageProcessing
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Edit";
             // 
+            // txtBinB
+            // 
+            this.txtBinB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBinB.Location = new System.Drawing.Point(97, 81);
+            this.txtBinB.Name = "txtBinB";
+            this.txtBinB.Size = new System.Drawing.Size(48, 20);
+            this.txtBinB.TabIndex = 15;
+            // 
             // btnGenB
             // 
             this.btnGenB.Location = new System.Drawing.Point(106, 48);
@@ -299,6 +331,16 @@ namespace furi_imageProcessing
             this.btnDivB.Text = "Division";
             this.btnDivB.UseVisualStyleBackColor = true;
             this.btnDivB.Click += new System.EventHandler(this.btnDivB_Click);
+            // 
+            // btnNotB
+            // 
+            this.btnNotB.Location = new System.Drawing.Point(6, 21);
+            this.btnNotB.Name = "btnNotB";
+            this.btnNotB.Size = new System.Drawing.Size(85, 23);
+            this.btnNotB.TabIndex = 16;
+            this.btnNotB.Text = "NOT";
+            this.btnNotB.UseVisualStyleBackColor = true;
+            this.btnNotB.Click += new System.EventHandler(this.btnNotB_Click);
             // 
             // btnGrayB
             // 
@@ -358,16 +400,6 @@ namespace furi_imageProcessing
             this.txtDivB.TabIndex = 13;
             this.txtDivB.TextChanged += new System.EventHandler(this.txtDivB_TextChanged);
             // 
-            // btnNotB
-            // 
-            this.btnNotB.Location = new System.Drawing.Point(6, 21);
-            this.btnNotB.Name = "btnNotB";
-            this.btnNotB.Size = new System.Drawing.Size(85, 23);
-            this.btnNotB.TabIndex = 16;
-            this.btnNotB.Text = "NOT";
-            this.btnNotB.UseVisualStyleBackColor = true;
-            this.btnNotB.Click += new System.EventHandler(this.btnNotB_Click);
-            // 
             // pbB
             // 
             this.pbB.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -394,6 +426,7 @@ namespace furi_imageProcessing
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Controls.Add(this.btnExport);
             this.groupBox3.Controls.Add(this.pbResult);
             this.groupBox3.Location = new System.Drawing.Point(467, 10);
@@ -703,21 +736,25 @@ namespace furi_imageProcessing
             this.chart1.TabIndex = 8;
             this.chart1.Text = "chart1";
             // 
-            // txtBinA
+            // button2
             // 
-            this.txtBinA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBinA.Location = new System.Drawing.Point(97, 77);
-            this.txtBinA.Name = "txtBinA";
-            this.txtBinA.Size = new System.Drawing.Size(48, 20);
-            this.txtBinA.TabIndex = 14;
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(15, 189);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(23, 23);
+            this.button2.TabIndex = 10;
+            this.button2.UseVisualStyleBackColor = true;
             // 
-            // txtBinB
+            // button3
             // 
-            this.txtBinB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBinB.Location = new System.Drawing.Point(97, 81);
-            this.txtBinB.Name = "txtBinB";
-            this.txtBinB.Size = new System.Drawing.Size(48, 20);
-            this.txtBinB.TabIndex = 15;
+            this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Location = new System.Drawing.Point(15, 189);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(23, 23);
+            this.button3.TabIndex = 15;
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -812,6 +849,9 @@ namespace furi_imageProcessing
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.TextBox txtBinA;
         private System.Windows.Forms.TextBox txtBinB;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
 
