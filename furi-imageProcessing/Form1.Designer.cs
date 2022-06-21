@@ -31,6 +31,7 @@ namespace furi_imageProcessing
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.Windows.Forms.DataVisualization.Charting.Chart chart1;
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -73,7 +74,7 @@ namespace furi_imageProcessing
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.bntHist = new System.Windows.Forms.Button();
             this.btnMirror = new System.Windows.Forms.Button();
             this.btnColV = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -93,8 +94,8 @@ namespace furi_imageProcessing
             this.btnGenAndSum = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox1.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbA)).BeginInit();
@@ -107,7 +108,7 @@ namespace furi_imageProcessing
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -135,6 +136,7 @@ namespace furi_imageProcessing
             this.btnRecoveryA.Size = new System.Drawing.Size(23, 23);
             this.btnRecoveryA.TabIndex = 9;
             this.btnRecoveryA.UseVisualStyleBackColor = true;
+            this.btnRecoveryA.Click += new System.EventHandler(this.btnRecoveryA_Click);
             // 
             // groupBox8
             // 
@@ -308,6 +310,7 @@ namespace furi_imageProcessing
             this.btnRecoveryB.Size = new System.Drawing.Size(23, 23);
             this.btnRecoveryB.TabIndex = 10;
             this.btnRecoveryB.UseVisualStyleBackColor = true;
+            this.btnRecoveryB.Click += new System.EventHandler(this.btnRecoveryB_Click);
             // 
             // groupBox9
             // 
@@ -481,6 +484,7 @@ namespace furi_imageProcessing
             this.btnRecoveryR.Size = new System.Drawing.Size(23, 23);
             this.btnRecoveryR.TabIndex = 15;
             this.btnRecoveryR.UseVisualStyleBackColor = true;
+            this.btnRecoveryR.Click += new System.EventHandler(this.btnRecoveryR_Click);
             // 
             // btnExport
             // 
@@ -520,7 +524,7 @@ namespace furi_imageProcessing
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.button5);
-            this.groupBox7.Controls.Add(this.button4);
+            this.groupBox7.Controls.Add(this.bntHist);
             this.groupBox7.Controls.Add(this.btnMirror);
             this.groupBox7.Controls.Add(this.btnColV);
             this.groupBox7.Location = new System.Drawing.Point(13, 270);
@@ -539,14 +543,15 @@ namespace furi_imageProcessing
             this.button5.Text = "Equalize";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // bntHist
             // 
-            this.button4.Location = new System.Drawing.Point(110, 67);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 35);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Visualize Histogram";
-            this.button4.UseVisualStyleBackColor = true;
+            this.bntHist.Location = new System.Drawing.Point(110, 67);
+            this.bntHist.Name = "bntHist";
+            this.bntHist.Size = new System.Drawing.Size(75, 35);
+            this.bntHist.TabIndex = 3;
+            this.bntHist.Text = "Show Histogram";
+            this.bntHist.UseVisualStyleBackColor = true;
+            this.bntHist.Click += new System.EventHandler(this.bntHist_Click);
             // 
             // btnMirror
             // 
@@ -783,18 +788,18 @@ namespace furi_imageProcessing
             // chart1
             // 
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Cursor = System.Windows.Forms.Cursors.Default;
+            chart1.ChartAreas.Add(chartArea1);
+            chart1.Cursor = System.Windows.Forms.Cursors.Default;
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(710, 420);
-            this.chart1.Name = "chart1";
+            chart1.Legends.Add(legend1);
+            chart1.Location = new System.Drawing.Point(710, 420);
+            chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(364, 173);
-            this.chart1.TabIndex = 8;
+            chart1.Series.Add(series1);
+            chart1.Size = new System.Drawing.Size(585, 302);
+            chart1.TabIndex = 8;
             // 
             // openFileDialog1
             // 
@@ -804,8 +809,8 @@ namespace furi_imageProcessing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1324, 605);
-            this.Controls.Add(this.chart1);
+            this.ClientSize = new System.Drawing.Size(1416, 734);
+            this.Controls.Add(chart1);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox4);
@@ -831,7 +836,7 @@ namespace furi_imageProcessing
             this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -889,13 +894,12 @@ namespace furi_imageProcessing
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.TextBox txtDiv;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.TextBox txtBinA;
         private System.Windows.Forms.TextBox txtBinB;
         private System.Windows.Forms.Button btnRecoveryA;
         private System.Windows.Forms.Button btnRecoveryB;
         private System.Windows.Forms.Button btnRecoveryR;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button bntHist;
         private System.Windows.Forms.Button btnEqA;
         private System.Windows.Forms.Button btnEqB;
         private System.Windows.Forms.Button button5;

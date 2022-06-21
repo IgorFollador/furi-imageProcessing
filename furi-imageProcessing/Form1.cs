@@ -15,25 +15,14 @@ namespace furi_imageProcessing
     public partial class Form1 : Form
     {
         private Bitmap img1;
-        private byte[,] vImg1Gray;
-        private byte[,] vImg1R;
-        private byte[,] vImg1G;
-        private byte[,] vImg1B;
-        private byte[,] vImg1A;
+        private Bitmap img1Copy;
 
         private Bitmap img2;
-        private byte[,] vImg2Gray;
-        private byte[,] vImg2R;
-        private byte[,] vImg2G;
-        private byte[,] vImg2B;
-        private byte[,] vImg2A;
+        private Bitmap img2Copy;
 
         private Bitmap imgR;
-        private byte[,] vImg3Gray;
-        private byte[,] vImg3R;
-        private byte[,] vImg3G;
-        private byte[,] vImg3B;
-        private byte[,] vImg3A;
+        private Bitmap imgRCopy;
+
         public Form1()
         {
             InitializeComponent();
@@ -62,6 +51,7 @@ namespace furi_imageProcessing
                 try
                 {
                     img1 = new Bitmap(filePath);
+                    img1Copy = img1;
                     bLoadImgOk = true;
                 }
                 catch (Exception ex)
@@ -77,11 +67,6 @@ namespace furi_imageProcessing
                 {
                     // Adiciona 
                     pbA.Image = img1;
-                    vImg1Gray = new byte[img1.Width, img1.Height];
-                    vImg1R = new byte[img1.Width, img1.Height];
-                    vImg1G = new byte[img1.Width, img1.Height];
-                    vImg1B = new byte[img1.Width, img1.Height];
-                    vImg1A = new byte[img1.Width, img1.Height];
 
                 }
             }
@@ -110,6 +95,7 @@ namespace furi_imageProcessing
                 try
                 {
                     img2 = new Bitmap(filePath);
+                    img2Copy = img2;
                     bLoadImgOk = true;
                 }
                 catch (Exception ex)
@@ -146,6 +132,7 @@ namespace furi_imageProcessing
                 verifyImage(img2);
 
                 imgR = addImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -199,6 +186,7 @@ namespace furi_imageProcessing
             try
             {
                 imgR = collageVBitmap(images);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -358,6 +346,7 @@ namespace furi_imageProcessing
                 verifyImage(img1);
                 verifyImage(img2);
                 imgR = subImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -410,6 +399,7 @@ namespace furi_imageProcessing
                 verifyImage(img1);
                 verifyImage(img2);
                 imgR = avgImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -471,6 +461,7 @@ namespace furi_imageProcessing
                 verifyImage(img1);
                 verifyImage(img2);
                 imgR = blendImages(img1, img2, double.Parse(txt));
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -613,6 +604,7 @@ namespace furi_imageProcessing
                 verifyImage(img1);
                 verifyImage(img2);
                 imgR = divImages(img1, img2, int.Parse(txt));
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -666,6 +658,7 @@ namespace furi_imageProcessing
                 verifyImage(img1);
                 verifyImage(img2);
                 imgR = multiplyImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -973,6 +966,7 @@ namespace furi_imageProcessing
                 verifyImage(img2);
 
                 imgR = andImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -1037,6 +1031,7 @@ namespace furi_imageProcessing
                 verifyImage(img2);
 
                 imgR = orImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -1101,6 +1096,7 @@ namespace furi_imageProcessing
                 verifyImage(img2);
 
                 imgR = xorImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -1165,6 +1161,7 @@ namespace furi_imageProcessing
                 verifyImage(img2);
 
                 imgR = notImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -1292,6 +1289,7 @@ namespace furi_imageProcessing
                 verifyImage(imgR);
 
                 imgR = mirrorImages(imgR);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -1334,6 +1332,7 @@ namespace furi_imageProcessing
                 pbB.Image = imgR;
 
                 imgR = addImages(img1, img2);
+                imgRCopy = imgR;
                 pbResult.Image = imgR;
             }
             catch (Exception ex)
@@ -1444,6 +1443,76 @@ namespace furi_imageProcessing
         private void txtDiv_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnRecoveryA_Click(object sender, EventArgs e)
+        {
+            img1 = img1Copy;
+            pbA.Image = img1Copy;
+        }
+
+        private void btnRecoveryB_Click(object sender, EventArgs e)
+        {
+            img2 = img2Copy;
+            pbB.Image = img2Copy;
+        }
+
+        private void btnRecoveryR_Click(object sender, EventArgs e)
+        {
+            imgR = imgRCopy;
+            pbResult.Image = imgRCopy;
+        }
+
+        private void bntHist_Click(object sender, EventArgs e)
+        {
+            if(img1 != null)
+            {
+                calculateHistogram(img1);
+
+            }
+
+            if(img2 != null)
+            {
+
+            }
+
+            if(imgR != null)
+            {
+
+            }
+
+            Form2 f2 = new Form2();
+            f2.ShowDialog();
+        }
+
+        private void calculateHistogram(Bitmap image)
+        {
+            int x, y;
+            int[] histCountR = new int[256];
+            int[] histCountG = new int[256];
+            int[] histCountB = new int[256];
+
+
+            for (x = 0; x < image.Width; x++)
+            {
+                for (y = 0; y < image.Height; y++)
+                {
+                    Color colorPixel = image.GetPixel(x, y);
+
+                    for (int i = 1; i < 256; i++)
+                    {
+                        if (i == colorPixel.R) histCountR[i]++;
+                        if (i == colorPixel.G) histCountG[i]++;
+                        if (i == colorPixel.B) histCountB[i]++;
+                    }
+
+                }
+            }
+            for (int i = 0; i < 256; i++)
+            {
+                chart1.Series["Series1"].Points.AddXY(i, histCountR[i]);
+            }
+            Console.WriteLine("Histogram");
         }
     }
 }
