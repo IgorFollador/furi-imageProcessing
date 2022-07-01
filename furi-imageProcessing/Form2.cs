@@ -16,5 +16,6 @@ namespace furi_imageProcessing
         {
             InitializeComponent();
         }
+
     }
 }

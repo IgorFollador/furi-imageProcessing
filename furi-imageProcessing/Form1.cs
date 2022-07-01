@@ -23,6 +23,8 @@ namespace furi_imageProcessing
         private Bitmap imgR;
         private Bitmap imgRCopy;
 
+        private int filterDimension = 3;
+
         public Form1()
         {
             InitializeComponent();
@@ -234,7 +236,7 @@ namespace furi_imageProcessing
         }
 
         private Bitmap divImage(Bitmap image, double num)
-        { 
+        {
             Bitmap outputImage = new Bitmap(image.Width, image.Height);
 
             int x, y;
@@ -446,11 +448,13 @@ namespace furi_imageProcessing
             {
                 MessageBox.Show("Field Required\nPlease insert a value in range 0.00 - 1.00", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            } else if(!double.TryParse(txt, out double num))
+            }
+            else if (!double.TryParse(txt, out double num))
             {
                 MessageBox.Show("Only numbers", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }else if(num < 0 || num > 1)
+            }
+            else if (num < 0 || num > 1)
             {
                 MessageBox.Show("Please insert a value in range 0.00 - 1.00", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -475,7 +479,7 @@ namespace furi_imageProcessing
 
         private void verifyImage(Bitmap image)
         {
-            if(image == null)
+            if (image == null)
             {
                 MessageBox.Show("Please insert valid images!", "Images not found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 throw new InvalidOperationException("Image not found!");
@@ -509,7 +513,7 @@ namespace furi_imageProcessing
                         if (G < 0) G = 0;
                         else if (G > 255) G = 255;
                         if (B < 0) B = 0;
-                        else if(B > 255) B = 255;
+                        else if (B > 255) B = 255;
                         color = Color.FromArgb(R, G, B);
                     }
                     else color = color1;
@@ -572,9 +576,9 @@ namespace furi_imageProcessing
                     G = (int)(color.G * num);
                     B = (int)(color.B * num);
 
-                    if(R > 255) R = 255;
-                    if(G > 255) G = 255;
-                    if(B > 255) B = 255;
+                    if (R > 255) R = 255;
+                    if (G > 255) G = 255;
+                    if (B > 255) B = 255;
 
                     colorOut = Color.FromArgb(R, G, B);
 
@@ -998,10 +1002,10 @@ namespace furi_imageProcessing
 
                     int R, G, B;
 
-                    if(color1.R > 0 && color2.R > 0)
+                    if (color1.R > 0 && color2.R > 0)
                     {
                         R = 255;
-                    } 
+                    }
                     else R = 0;
 
                     if (color1.G > 0 && color2.G > 0)
@@ -1014,7 +1018,7 @@ namespace furi_imageProcessing
                         B = 255;
                     }
                     else B = 0;
-                   
+
                     color = Color.FromArgb(R, G, B);
 
                     outputImage.SetPixel(x, y, color);
@@ -1231,7 +1235,7 @@ namespace furi_imageProcessing
                     "Image result exported to executable directory",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-                
+
             }
             catch (Exception ex)
             {
@@ -1263,12 +1267,13 @@ namespace furi_imageProcessing
                 myEncoderParameters.Param[0] = myEncoderParameter;
                 image.Save("exported_result.jpg", myImageCodecInfo, myEncoderParameters);
                 return true;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-    
+
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
             int j;
@@ -1465,54 +1470,560 @@ namespace furi_imageProcessing
 
         private void bntHist_Click(object sender, EventArgs e)
         {
-            if(img1 != null)
+            if (img1 != null)
             {
                 calculateHistogram(img1);
 
             }
 
-            if(img2 != null)
+            if (img2 != null)
             {
 
             }
 
-            if(imgR != null)
+            if (imgR != null)
             {
 
             }
 
-            Form2 f2 = new Form2();
-            f2.ShowDialog();
+            //Form2 f2 = new Form2();
+            //f2.ShowDialog();
         }
 
         private void calculateHistogram(Bitmap image)
         {
-            int x, y;
-            int[] histCountR = new int[256];
-            int[] histCountG = new int[256];
-            int[] histCountB = new int[256];
+            Bitmap imageGrayScale = toGray(image);
 
+            int x, y;
+            int[] histCount = new int[256];
 
             for (x = 0; x < image.Width; x++)
             {
                 for (y = 0; y < image.Height; y++)
                 {
-                    Color colorPixel = image.GetPixel(x, y);
+                    Color colorPixel = imageGrayScale.GetPixel(x, y);
 
-                    for (int i = 1; i < 256; i++)
-                    {
-                        if (i == colorPixel.R) histCountR[i]++;
-                        if (i == colorPixel.G) histCountG[i]++;
-                        if (i == colorPixel.B) histCountB[i]++;
-                    }
+                    histCount[colorPixel.R]++;
 
                 }
             }
+
+            chart1.Series["Series1"].Points.Clear();
+            for (int i = 1; i < 256; i++)
+            {
+                chart1.Series["Series1"].Points.AddXY(i, histCount[i]);
+            }
+        }
+
+        private Bitmap equalizeImage(Bitmap image)
+        {
+            Bitmap imageEqualized = new Bitmap(image.Width, image.Height);
+
+
+            //Step 1 - Calculate Histogram
+            int[] histCountR = new int[256];
+            int[] histCountG = new int[256];
+            int[] histCountB = new int[256];
+
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    Color colorPixel = image.GetPixel(x, y);
+                    histCountR[colorPixel.R]++;
+                    histCountG[colorPixel.G]++;
+                    histCountB[colorPixel.B]++;
+                }
+            }
+
+            //Step 2 - Calculate CFD
+            int[] cfdR = new int[256];
+            int[] cfdG = new int[256];
+            int[] cfdB = new int[256];
+
             for (int i = 0; i < 256; i++)
             {
-                chart1.Series["Series1"].Points.AddXY(i, histCountR[i]);
+                if (i == 0)
+                {
+                    cfdR[i] = histCountR[0];
+                    cfdG[i] = histCountG[0];
+                    cfdB[i] = histCountB[0];
+                }
+                else
+                {
+                    cfdR[i] = histCountR[i] + histCountR[i - 1];
+                    cfdG[i] = histCountG[i] + histCountG[i - 1];
+                    cfdB[i] = histCountB[i] + histCountB[i - 1];
+                }
+
+                if (cfdR[i] < 0) cfdR[i] = 0;
+                else if (cfdR[i] > 255) cfdR[i] = 255;
+                if (cfdG[i] < 0) cfdG[i] = 0;
+                else if (cfdG[i] > 255) cfdG[i] = 255;
+                if (cfdB[i] < 0) cfdB[i] = 0;
+                else if (cfdB[i] > 255) cfdB[i] = 255;
             }
-            Console.WriteLine("Histogram");
+
+            int minCfdR = cfdR.Min();
+
+            int minCfdG = cfdG.Min();
+
+            int minCfdB = cfdG.Min();
+
+            int imageArea = image.Width * image.Height;
+
+            //Step 3 - Calculate New Color
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    Color colorPixel = image.GetPixel(x, y);
+
+                    int R = ((cfdR[colorPixel.R] - minCfdR) / (imageArea - minCfdR)) * 254;
+                    int G = ((cfdG[colorPixel.G] - minCfdG) / (imageArea - minCfdG)) * 254;
+                    int B = ((cfdB[colorPixel.B] - minCfdB) / (imageArea - minCfdB)) * 254;
+
+                    if (R < 0) R = 0;
+                    else if (R > 255) R = 255;
+                    if (G < 0) G = 0;
+                    else if (G > 255) G = 255;
+                    if (B < 0) B = 0;
+                    else if (B > 255) B = 255;
+
+                    Color colorEq = Color.FromArgb(R, G, B);
+
+                    imageEqualized.SetPixel(x, y, colorEq);
+
+                }
+            }
+
+            //Calculate Histogram Eqaulized
+            int[] histEqCount = new int[256];
+
+            Bitmap imageGrayScale = toGray(imageEqualized);
+
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    Color colorPixel = imageGrayScale.GetPixel(x, y);
+
+                    histEqCount[colorPixel.R]++;
+
+                }
+            }
+
+            chart2.Series["Series1"].Points.Clear();
+            for (int i = 1; i < 256; i++)
+            {
+                chart2.Series["Series1"].Points.AddXY(i, histEqCount[i]);
+            }
+
+            return imageEqualized;
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEqA_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img1);
+                img1 = equalizeImage(img1);
+                pbA.Image = img1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Mirror image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void rdoTree_CheckedChanged(object sender, EventArgs e)
+        {
+            filterDimension = 3;
+        }
+
+        private void rdoFive_CheckedChanged(object sender, EventArgs e)
+        {
+            filterDimension = 5;
+        }
+
+        private void rdoSeven_CheckedChanged(object sender, EventArgs e)
+        {
+            filterDimension = 7;
+        }
+
+        private void btnFilterMax_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                imgR = filterMax(img1);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    " image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFilterMin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                imgR = filterMin(img1);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    " image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFilterAvg_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                imgR = filterAvg(img1);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    " image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnFilterMed_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                imgR = filterMed(img1);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    " image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap filterMed(Bitmap image)
+        {
+            Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
+
+            int kernelArea = filterDimension * filterDimension;
+
+            /*int[] kernel = new int[kernelArea];
+
+            for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
+
+            for (int x = 1; x < (image.Width - 1); x++)
+            {
+                for (int y = 1; y < (image.Height - 1); y++)
+                {
+
+                    Neighborhood neighborhood = calculateNeighborhood(image, x, y);
+
+                    int[] ngbR = neighborhood.ngbR;
+                    int[] ngbG = neighborhood.ngbG;
+                    int[] ngbB = neighborhood.ngbB;
+
+                    Array.Sort(ngbR);
+                    Array.Sort(ngbG);
+                    Array.Sort(ngbB);
+
+                    int R = ngbR[(kernelArea-1)/2], G = ngbG[(kernelArea - 1) / 2], B = ngbB[(kernelArea - 1) / 2];
+
+                    Color colorOut = Color.FromArgb(R, G, B);
+                    outputImage.SetPixel(x, y, colorOut);
+                }
+            }
+
+            return outputImage;
+        }
+
+        private Bitmap filterAvg(Bitmap image)
+        {
+            Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
+
+            /*int kernelArea = filterDimension * filterDimension;
+
+            int[] kernel = new int[kernelArea];
+
+            for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
+
+            for (int x = 1; x < (image.Width - 1); x++)
+            {
+                for (int y = 1; y < (image.Height - 1); y++)
+                {
+
+                    Neighborhood neighborhood = calculateNeighborhood(image, x, y);
+
+                    int R = (neighborhood.ngbR.Sum()/9), G = (neighborhood.ngbG.Sum()/9), B = (neighborhood.ngbB.Sum()/9);
+
+                    Color colorOut = Color.FromArgb(R, G, B);
+                    outputImage.SetPixel(x, y, colorOut);
+                }
+            }
+
+            return outputImage;
+        }
+
+        private Bitmap filterMax(Bitmap image)
+        {
+            Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
+
+            /*int kernelArea = filterDimension * filterDimension;
+
+            int[] kernel = new int[kernelArea];
+
+            for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
+
+            for (int x = 1; x < (image.Width-1); x++)
+            {
+                for (int y = 1; y < (image.Height-1); y++)
+                { 
+
+                    Neighborhood neighborhood = calculateNeighborhood(image, x, y);
+
+                    int R = neighborhood.ngbR.Max(), G = neighborhood.ngbG.Max(), B = neighborhood.ngbB.Max();
+
+                    Color colorOut = Color.FromArgb(R, G, B);
+                    outputImage.SetPixel(x, y, colorOut);
+                }
+            }
+
+            return outputImage;
+
+        }
+
+        private Bitmap filterMin(Bitmap image)
+        {
+            Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
+
+            /*int kernelArea = filterDimension * filterDimension;
+
+            int[] kernel = new int[kernelArea];
+
+            for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
+
+            for (int x = 1; x < (image.Width - 1); x++)
+            {
+                for (int y = 1; y < (image.Height - 1); y++)
+                {
+
+                    Neighborhood neighborhood = calculateNeighborhood(image, x, y);
+
+                    int R = neighborhood.ngbR.Min(), G = neighborhood.ngbG.Min(), B = neighborhood.ngbB.Min();
+
+                    Color colorOut = Color.FromArgb(R, G, B);
+                    outputImage.SetPixel(x, y, colorOut);
+                }
+            }
+
+            return outputImage;
+
+        }
+
+        public class Neighborhood
+        {
+            public int[] ngbR { get; set; }
+            public int[] ngbG { get; set; }
+            public int[] ngbB { get; set; }
+        }
+
+        private Neighborhood calculateNeighborhood(Bitmap image, int x, int y)
+        {
+            //Color[] neighborhood = new Color[filterDimension * filterDimension];
+            int[] ngbR = new int[filterDimension * filterDimension];
+            int[] ngbG = new int[filterDimension * filterDimension];
+            int[] ngbB = new int[filterDimension * filterDimension];
+
+            if (filterDimension == 3)
+            {
+                /*neighborhood[0] = image.GetPixel(x - 1, y - 1);
+                neighborhood[1] = image.GetPixel(x - 1, y);
+                neighborhood[2] = image.GetPixel(x - 1, y + 1);
+                neighborhood[3] = image.GetPixel(x, y - 1);
+
+                neighborhood[4] = image.GetPixel(x, y);
+
+                neighborhood[5] = image.GetPixel(x, y + 1);
+                neighborhood[6] = image.GetPixel(x + 1, y - 1);
+                neighborhood[7] = image.GetPixel(x + 1, y);
+                neighborhood[8] = image.GetPixel(x + 1, y + 1);*/
+
+                //neighborhood red
+                ngbR[0] = image.GetPixel(x - 1, y - 1).R;
+                ngbR[1] = image.GetPixel(x - 1, y).R;
+                ngbR[2] = image.GetPixel(x - 1, y + 1).R;
+                ngbR[3] = image.GetPixel(x, y - 1).R;
+
+                ngbR[4] = image.GetPixel(x, y).R;
+
+                ngbR[5] = image.GetPixel(x, y + 1).R;
+                ngbR[6] = image.GetPixel(x + 1, y - 1).R;
+                ngbR[7] = image.GetPixel(x + 1, y).R;
+                ngbR[8] = image.GetPixel(x + 1, y + 1).R;
+
+                //neighborhood green
+                ngbG[0] = image.GetPixel(x - 1, y - 1).G;
+                ngbG[1] = image.GetPixel(x - 1, y).G;
+                ngbG[2] = image.GetPixel(x - 1, y + 1).G;
+                ngbG[3] = image.GetPixel(x, y - 1).G;
+
+                ngbG[4] = image.GetPixel(x, y).G;
+
+                ngbG[5] = image.GetPixel(x, y + 1).G;
+                ngbG[6] = image.GetPixel(x + 1, y - 1).G;
+                ngbG[7] = image.GetPixel(x + 1, y).G;
+                ngbG[8] = image.GetPixel(x + 1, y + 1).G;
+
+                //neighborhood blue
+                ngbB[0] = image.GetPixel(x - 1, y - 1).B;
+                ngbB[1] = image.GetPixel(x - 1, y).B;
+                ngbB[2] = image.GetPixel(x - 1, y + 1).B;
+                ngbB[3] = image.GetPixel(x, y - 1).B;
+
+                ngbB[4] = image.GetPixel(x, y).B;
+
+                ngbB[5] = image.GetPixel(x, y + 1).B;
+                ngbB[6] = image.GetPixel(x + 1, y - 1).B;
+                ngbB[7] = image.GetPixel(x + 1, y).B;
+                ngbB[8] = image.GetPixel(x + 1, y + 1).B;
+            }
+            else if (filterDimension == 5) // TEM Q TRATAR
+            {
+                /*neighborhood[0] = image.GetPixel(x - 2, y - 2);
+                neighborhood[1] = image.GetPixel(x - 2, y - 1);
+                neighborhood[2] = image.GetPixel(x - 2, y);
+                neighborhood[3] = image.GetPixel(x - 2, y + 1);
+                neighborhood[4] = image.GetPixel(x - 2, y + 2);
+                neighborhood[5] = image.GetPixel(x - 1, y - 2);
+                neighborhood[6] = image.GetPixel(x - 1, y - 1);
+                neighborhood[7] = image.GetPixel(x - 1, y);
+                neighborhood[8] = image.GetPixel(x - 1, y + 1);
+                neighborhood[9] = image.GetPixel(x - 1, y + 2);
+                neighborhood[10] = image.GetPixel(x, y - 2);
+                neighborhood[11] = image.GetPixel(x, y - 1);
+
+                neighborhood[12] = image.GetPixel(x, y);
+
+                neighborhood[13] = image.GetPixel(x, y + 1);
+                neighborhood[14] = image.GetPixel(x, y + 2);
+                neighborhood[15] = image.GetPixel(x + 1, y - 2);
+                neighborhood[16] = image.GetPixel(x + 1, y - 1);
+                neighborhood[17] = image.GetPixel(x + 1, y);
+                neighborhood[18] = image.GetPixel(x + 1, y + 1);
+                neighborhood[19] = image.GetPixel(x + 1, y + 2);
+                neighborhood[20] = image.GetPixel(x + 2, y - 2);
+                neighborhood[21] = image.GetPixel(x + 2, y - 1);
+                neighborhood[22] = image.GetPixel(x + 2, y);
+                neighborhood[23] = image.GetPixel(x + 2, y + 1);
+                neighborhood[24] = image.GetPixel(x + 2, y + 2);*/
+
+                //neighborhood red
+                ngbR[0] = image.GetPixel(x - 2, y - 2).R;
+                ngbR[1] = image.GetPixel(x - 2, y - 1).R;
+                ngbR[2] = image.GetPixel(x - 2, y).R;
+                ngbR[3] = image.GetPixel(x - 2, y + 1).R;
+                ngbR[4] = image.GetPixel(x - 2, y + 2).R;
+                ngbR[5] = image.GetPixel(x - 1, y - 2).R;
+                ngbR[6] = image.GetPixel(x - 1, y - 1).R;
+                ngbR[7] = image.GetPixel(x - 1, y).R;
+                ngbR[8] = image.GetPixel(x - 1, y + 1).R;
+                ngbR[9] = image.GetPixel(x - 1, y + 2).R;
+                ngbR[10] = image.GetPixel(x, y - 2).R;
+                ngbR[11] = image.GetPixel(x, y - 1).R;
+                ngbR[12] = image.GetPixel(x, y).R;
+                ngbR[13] = image.GetPixel(x, y + 1).R;
+                ngbR[14] = image.GetPixel(x, y + 2).R;
+                ngbR[15] = image.GetPixel(x + 1, y - 2).R;
+                ngbR[16] = image.GetPixel(x + 1, y - 1).R;
+                ngbR[17] = image.GetPixel(x + 1, y).R;
+                ngbR[18] = image.GetPixel(x + 1, y + 1).R;
+                ngbR[19] = image.GetPixel(x + 1, y + 2).R;
+                ngbR[20] = image.GetPixel(x + 2, y - 2).R;
+                ngbR[21] = image.GetPixel(x + 2, y - 1).R;
+                ngbR[22] = image.GetPixel(x + 2, y).R;
+                ngbR[23] = image.GetPixel(x + 2, y + 1).R;
+                ngbR[24] = image.GetPixel(x + 2, y + 2).R;
+
+                //neighborhood green
+                ngbG[0] = image.GetPixel(x - 2, y - 2).G;
+                ngbG[1] = image.GetPixel(x - 2, y - 1).G;
+                ngbG[2] = image.GetPixel(x - 2, y).G;
+                ngbG[3] = image.GetPixel(x - 2, y + 1).G;
+                ngbG[4] = image.GetPixel(x - 2, y + 2).G;
+                ngbG[5] = image.GetPixel(x - 1, y - 2).G;
+                ngbG[6] = image.GetPixel(x - 1, y - 1).G;
+                ngbG[7] = image.GetPixel(x - 1, y).G;
+                ngbG[8] = image.GetPixel(x - 1, y + 1).G;
+                ngbG[9] = image.GetPixel(x - 1, y + 2).G;
+                ngbG[10] = image.GetPixel(x, y - 2).G;
+                ngbG[11] = image.GetPixel(x, y - 1).G;
+                ngbG[12] = image.GetPixel(x, y).G;
+                ngbG[13] = image.GetPixel(x, y + 1).G;
+                ngbG[14] = image.GetPixel(x, y + 2).G;
+                ngbG[15] = image.GetPixel(x + 1, y - 2).G;
+                ngbG[16] = image.GetPixel(x + 1, y - 1).G;
+                ngbG[17] = image.GetPixel(x + 1, y).G;
+                ngbG[18] = image.GetPixel(x + 1, y + 1).G;
+                ngbG[19] = image.GetPixel(x + 1, y + 2).G;
+                ngbG[20] = image.GetPixel(x + 2, y - 2).G;
+                ngbG[21] = image.GetPixel(x + 2, y - 1).G;
+                ngbG[22] = image.GetPixel(x + 2, y).G;
+                ngbG[23] = image.GetPixel(x + 2, y + 1).G;
+                ngbG[24] = image.GetPixel(x + 2, y + 2).G;
+
+                //neighborhood blue
+                ngbB[0] = image.GetPixel(x - 2, y - 2).B;
+                ngbB[1] = image.GetPixel(x - 2, y - 1).B;
+                ngbB[2] = image.GetPixel(x - 2, y).B;
+                ngbB[3] = image.GetPixel(x - 2, y + 1).B;
+                ngbB[4] = image.GetPixel(x - 2, y + 2).B;
+                ngbB[5] = image.GetPixel(x - 1, y - 2).B;
+                ngbB[6] = image.GetPixel(x - 1, y - 1).B;
+                ngbB[7] = image.GetPixel(x - 1, y).B;
+                ngbB[8] = image.GetPixel(x - 1, y + 1).B;
+                ngbB[9] = image.GetPixel(x - 1, y + 2).B;
+                ngbB[10] = image.GetPixel(x, y - 2).B;
+                ngbB[11] = image.GetPixel(x, y - 1).B;
+                ngbB[12] = image.GetPixel(x, y).B;
+                ngbB[13] = image.GetPixel(x, y + 1).B;
+                ngbB[14] = image.GetPixel(x, y + 2).B;
+                ngbB[15] = image.GetPixel(x + 1, y - 2).B;
+                ngbB[16] = image.GetPixel(x + 1, y - 1).B;
+                ngbB[17] = image.GetPixel(x + 1, y).B;
+                ngbB[18] = image.GetPixel(x + 1, y + 1).B;
+                ngbB[19] = image.GetPixel(x + 1, y + 2).B;
+                ngbB[20] = image.GetPixel(x + 2, y - 2).B;
+                ngbB[21] = image.GetPixel(x + 2, y - 1).B;
+                ngbB[22] = image.GetPixel(x + 2, y).B;
+                ngbB[23] = image.GetPixel(x + 2, y + 1).B;
+                ngbB[24] = image.GetPixel(x + 2, y + 2).B;
+            }
+            else if (filterDimension == 7) { }
+
+                return new Neighborhood { ngbR = ngbR, ngbG = ngbG, ngbB = ngbB };
+        }
+
+        
     }
 }
