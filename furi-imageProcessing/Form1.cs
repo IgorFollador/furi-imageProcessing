@@ -1777,6 +1777,132 @@ namespace furi_imageProcessing
             }
         }
 
+        private void btnFilterGaus_Click(object sender, EventArgs e)
+        {
+            int neighborhoodSize = filterDimension * filterDimension;
+            string txt = txtFilterGaus.Text;
+            if (txt == "") txt = "1";
+            else if (!double.TryParse(txt, out double num))
+            {
+                MessageBox.Show("Only numbers", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (num < 0 || num > 3)
+            {
+                MessageBox.Show("Please insert a value in range 0.0 - 3.0", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                verifyImage(img1);
+                imgR = filterGaussian(img1, double.Parse(txt));
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    " image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap filterGaussian(Bitmap image, double num)
+        {
+            Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
+
+            int kernelArea = filterDimension * filterDimension;
+
+            /*int[] kernel = new int[kernelArea];
+
+            for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
+
+            for (int x = 1; x < (image.Width - 1); x++)
+            {
+                for (int y = 1; y < (image.Height - 1); y++)
+                {
+
+                    const double PI = 3.1415926535897931;
+
+                    int R, G, B;
+
+                    double sumRed = 0, sumGreen = 0, sumBlue = 0, div = 0, filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow( - 1, 2) + Math.Pow( - 1, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x - 1, y - 1).R * filter;
+                    sumGreen += image.GetPixel(x - 1, y - 1).G * filter;
+                    sumBlue += image.GetPixel(x - 1, y - 1).B * filter;
+                    div += filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow( - 1, 2) + Math.Pow(0, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x - 1, y).R * filter;
+                    sumGreen += image.GetPixel(x - 1, y).G * filter;
+                    sumBlue += image.GetPixel(x - 1, y).B * filter;
+                    div += filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow( - 1, 2) + Math.Pow( 1, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x - 1, y + 1).R * filter;
+                    sumGreen += image.GetPixel(x - 1, y + 1).G * filter;
+                    sumBlue += image.GetPixel(x - 1, y + 1).B * filter;
+                    div += filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow(0, 2) + Math.Pow( - 1, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x, y - 1).R * filter;
+                    sumGreen += image.GetPixel(x, y - 1).G * filter;
+                    sumBlue += image.GetPixel(x, y - 1).B * filter;
+                    div += filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow(0, 2) + Math.Pow(0, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x, y).R * filter;
+                    sumGreen += image.GetPixel(x, y).G * filter;
+                    sumBlue += image.GetPixel(x, y).B * filter;
+                    div += filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow(0, 2) + Math.Pow( 1, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x, y + 1).R * filter;
+                    sumGreen += image.GetPixel(x, y + 1).G * filter;
+                    sumBlue += image.GetPixel(x, y + 1).B * filter;
+                    div += filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow(1, 2) + Math.Pow(- 1, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x + 1, y - 1).R * filter;
+                    sumGreen += image.GetPixel(x + 1, y - 1).G * filter;
+                    sumBlue += image.GetPixel(x + 1, y - 1).B * filter;
+                    div += filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow(1, 2) + Math.Pow(0, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x + 1, y).R * filter;
+                    sumGreen += image.GetPixel(x + 1, y).G * filter;
+                    sumBlue += image.GetPixel(x + 1, y).B * filter;
+                    div += filter;
+
+                    filter = ((1 / (2 * PI * Math.Pow(num, 2))) * Math.Exp(-((Math.Pow(1, 2) + Math.Pow(1, 2)) / (2 * Math.Pow(num, 2)))));
+                    sumRed += image.GetPixel(x + 1, y + 1).R * filter;
+                    sumGreen += image.GetPixel(x + 1, y + 1).G * filter;
+                    sumBlue += image.GetPixel(x + 1, y + 1).B * filter;
+                    div += filter;
+
+
+                    R = (int)(sumRed / div);
+                    G = (int)(sumGreen / div);
+                    B = (int)(sumBlue / div);
+
+                    if (R < 0) R = 0;
+                    else if (R > 255) R = 255;
+                    if (G < 0) G = 0;
+                    else if (G > 255) G = 255;
+                    if (B < 0) B = 0;
+                    else if (B > 255) B = 255;
+
+                    Color colorOut = Color.FromArgb(R, G, B);
+                    outputImage.SetPixel(x, y, colorOut);
+                }
+            }
+
+            return outputImage;
+        }
+
         private Bitmap filterSmoothing(Bitmap image)
         {
             Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
@@ -1862,14 +1988,14 @@ namespace furi_imageProcessing
             Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
 
             int kernelArea = filterDimension * filterDimension;
-
+            int droppedLines = filterDimension / 2;
             /*int[] kernel = new int[kernelArea];
 
             for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
 
-            for (int x = 1; x < (image.Width - 1); x++)
+            for (int x = droppedLines; x < (image.Width - droppedLines); x++)
             {
-                for (int y = 1; y < (image.Height - 1); y++)
+                for (int y = droppedLines; y < (image.Height - droppedLines); y++)
                 {
 
                     Neighborhood neighborhood = calculateNeighborhood(image, x, y);
@@ -1897,14 +2023,15 @@ namespace furi_imageProcessing
             Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
 
             int kernelArea = filterDimension * filterDimension;
+            int droppedLines = filterDimension / 2;
 
             /*int[] kernel = new int[kernelArea];
 
             for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
 
-            for (int x = 1; x < (image.Width - 1); x++)
+            for (int x = droppedLines; x < (image.Width - droppedLines); x++)
             {
-                for (int y = 1; y < (image.Height - 1); y++)
+                for (int y = droppedLines; y < (image.Height - droppedLines); y++)
                 {
 
                     Neighborhood neighborhood = calculateNeighborhood(image, x, y);
