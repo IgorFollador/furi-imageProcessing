@@ -31,12 +31,12 @@ namespace furi_imageProcessing
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnRecoveryA = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -77,7 +77,7 @@ namespace furi_imageProcessing
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.txtFilterOrd = new System.Windows.Forms.TextBox();
             this.btnFilterGaus = new System.Windows.Forms.Button();
-            this.btnFilterConsSmo = new System.Windows.Forms.Button();
+            this.btnFilterSmoothing = new System.Windows.Forms.Button();
             this.btnFilterOrd = new System.Windows.Forms.Button();
             this.btnFilterMed = new System.Windows.Forms.Button();
             this.rdoTree = new System.Windows.Forms.RadioButton();
@@ -113,6 +113,7 @@ namespace furi_imageProcessing
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.txtFilterGaus = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbA)).BeginInit();
@@ -547,9 +548,10 @@ namespace furi_imageProcessing
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.txtFilterGaus);
             this.groupBox10.Controls.Add(this.txtFilterOrd);
             this.groupBox10.Controls.Add(this.btnFilterGaus);
-            this.groupBox10.Controls.Add(this.btnFilterConsSmo);
+            this.groupBox10.Controls.Add(this.btnFilterSmoothing);
             this.groupBox10.Controls.Add(this.btnFilterOrd);
             this.groupBox10.Controls.Add(this.btnFilterMed);
             this.groupBox10.Controls.Add(this.rdoTree);
@@ -568,32 +570,33 @@ namespace furi_imageProcessing
             // txtFilterOrd
             // 
             this.txtFilterOrd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFilterOrd.Location = new System.Drawing.Point(97, 138);
+            this.txtFilterOrd.Location = new System.Drawing.Point(97, 212);
             this.txtFilterOrd.Name = "txtFilterOrd";
             this.txtFilterOrd.Size = new System.Drawing.Size(48, 20);
             this.txtFilterOrd.TabIndex = 21;
             // 
             // btnFilterGaus
             // 
-            this.btnFilterGaus.Location = new System.Drawing.Point(110, 168);
+            this.btnFilterGaus.Location = new System.Drawing.Point(6, 237);
             this.btnFilterGaus.Name = "btnFilterGaus";
             this.btnFilterGaus.Size = new System.Drawing.Size(85, 23);
             this.btnFilterGaus.TabIndex = 20;
             this.btnFilterGaus.Text = "Gaussian";
             this.btnFilterGaus.UseVisualStyleBackColor = true;
             // 
-            // btnFilterConsSmo
+            // btnFilterSmoothing
             // 
-            this.btnFilterConsSmo.Location = new System.Drawing.Point(6, 168);
-            this.btnFilterConsSmo.Name = "btnFilterConsSmo";
-            this.btnFilterConsSmo.Size = new System.Drawing.Size(85, 36);
-            this.btnFilterConsSmo.TabIndex = 14;
-            this.btnFilterConsSmo.Text = "Conservative Smoothing";
-            this.btnFilterConsSmo.UseVisualStyleBackColor = true;
+            this.btnFilterSmoothing.Location = new System.Drawing.Point(110, 129);
+            this.btnFilterSmoothing.Name = "btnFilterSmoothing";
+            this.btnFilterSmoothing.Size = new System.Drawing.Size(85, 36);
+            this.btnFilterSmoothing.TabIndex = 14;
+            this.btnFilterSmoothing.Text = "Conservative Smoothing";
+            this.btnFilterSmoothing.UseVisualStyleBackColor = true;
+            this.btnFilterSmoothing.Click += new System.EventHandler(this.btnFilterSmoothing_Click);
             // 
             // btnFilterOrd
             // 
-            this.btnFilterOrd.Location = new System.Drawing.Point(6, 135);
+            this.btnFilterOrd.Location = new System.Drawing.Point(6, 209);
             this.btnFilterOrd.Name = "btnFilterOrd";
             this.btnFilterOrd.Size = new System.Drawing.Size(85, 23);
             this.btnFilterOrd.TabIndex = 13;
@@ -950,32 +953,32 @@ namespace furi_imageProcessing
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(6, 19);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "QtyPixels";
-            this.chart1.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "QtyPixels";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(403, 203);
             this.chart1.TabIndex = 8;
             this.chart1.Text = "chart1";
             // 
             // chart2
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart2.Legends.Add(legend4);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
             this.chart2.Location = new System.Drawing.Point(6, 19);
             this.chart2.Name = "chart2";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "QtyPixels";
-            this.chart2.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "QtyPixels";
+            this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(403, 203);
             this.chart2.TabIndex = 9;
             this.chart2.Text = "chart2";
@@ -999,6 +1002,14 @@ namespace furi_imageProcessing
             this.groupBox12.TabIndex = 9;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Histogram Image A Equalized";
+            // 
+            // txtFilterGaus
+            // 
+            this.txtFilterGaus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFilterGaus.Location = new System.Drawing.Point(97, 238);
+            this.txtFilterGaus.Name = "txtFilterGaus";
+            this.txtFilterGaus.Size = new System.Drawing.Size(48, 20);
+            this.txtFilterGaus.TabIndex = 22;
             // 
             // Form1
             // 
@@ -1113,7 +1124,7 @@ namespace furi_imageProcessing
         private System.Windows.Forms.RadioButton rdoFive;
         private System.Windows.Forms.TextBox txtFilterOrd;
         private System.Windows.Forms.Button btnFilterGaus;
-        private System.Windows.Forms.Button btnFilterConsSmo;
+        private System.Windows.Forms.Button btnFilterSmoothing;
         private System.Windows.Forms.Button btnFilterOrd;
         private System.Windows.Forms.Button btnFilterMed;
         private System.Windows.Forms.Button btnFilterMin;
@@ -1121,6 +1132,7 @@ namespace furi_imageProcessing
         private System.Windows.Forms.Button btnFilterMax;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.TextBox txtFilterGaus;
     }
 }
 

@@ -1556,19 +1556,19 @@ namespace furi_imageProcessing
             int minCfdG = cfdG.Min();
             int minCfdB = cfdB.Min();
 
-            int imageArea = image.Width * image.Height;
+            double imageArea = image.Width * image.Height;
 
             //Step 3 - Calculate New Color
             int[] hR = new int[256];
             int[] hG = new int[256];
             int[] hB = new int[256];
 
-            for (int i = 0; i < 256; i++)
+            /*for (int i = 0; i < 256; i++)
             {
                 hR[i] = ((cfdR[i] - minCfdR) / (imageArea - minCfdR)) * 254;
                 hG[i] = ((cfdG[i] - minCfdG) / (imageArea - minCfdG)) * 254;
                 hB[i] = ((cfdB[i] - minCfdB) / (imageArea - minCfdB)) * 254;
-            }
+            }*/
 
             for (int x = 0; x < image.Width; x++)
             {
@@ -1576,11 +1576,11 @@ namespace furi_imageProcessing
                 {
                     Color colorPixel = image.GetPixel(x, y);
 
-                    int R = hR[colorPixel.R];
-                    int G = hG[colorPixel.G];
-                    int B = hB[colorPixel.B];
+                    double R = ((cfdR[colorPixel.R] - minCfdR) / (imageArea - minCfdR)) * 254;
+                    double G = ((cfdG[colorPixel.G] - minCfdG) / (imageArea - minCfdG)) * 254;
+                    double B = ((cfdB[colorPixel.B] - minCfdB) / (imageArea - minCfdB)) * 254;
 
-                    Color colorEq = Color.FromArgb(R, G, B);
+                    Color colorEq = Color.FromArgb((int)R, (int)G, (int)B);
 
                     imageEqualized.SetPixel(x, y, colorEq);
 
@@ -1640,7 +1640,7 @@ namespace furi_imageProcessing
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
-                    "Mirror image error",
+                    " image error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -1665,6 +1665,7 @@ namespace furi_imageProcessing
         {
             try
             {
+                verifyImage(img1);
                 imgR = filterMax(img1);
                 pbResult.Image = imgR;
             }
@@ -1681,6 +1682,7 @@ namespace furi_imageProcessing
         {
             try
             {
+                verifyImage(img1);
                 imgR = filterMin(img1);
                 pbResult.Image = imgR;
             }
@@ -1697,6 +1699,7 @@ namespace furi_imageProcessing
         {
             try
             {
+                verifyImage(img1);
                 imgR = filterAvg(img1);
                 pbResult.Image = imgR;
             }
@@ -1713,6 +1716,7 @@ namespace furi_imageProcessing
         {
             try
             {
+                verifyImage(img1);
                 imgR = filterMed(img1);
                 pbResult.Image = imgR;
             }
@@ -1743,6 +1747,7 @@ namespace furi_imageProcessing
             
             try
             {
+                verifyImage(img1);
                 imgR = filterOrd(img1, int.Parse(txt));
                 pbResult.Image = imgR;
             }
@@ -1753,6 +1758,66 @@ namespace furi_imageProcessing
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void btnFilterSmoothing_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                verifyImage(img1);
+                imgR = filterSmoothing(img1);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    " image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap filterSmoothing(Bitmap image)
+        {
+            Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
+
+            int kernelArea = filterDimension * filterDimension;
+
+            /*int[] kernel = new int[kernelArea];
+
+            for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
+
+            for (int x = 1; x < (image.Width - 1); x++)
+            {
+                for (int y = 1; y < (image.Height - 1); y++)
+                {
+                    int R, G, B;
+
+                    Neighborhood neighborhood = calculateNeighborhood(image, x, y);
+
+                    //neighborhood.ngbR.RemoveAt((kernelArea - 1) / 2);
+                    int minNgbR = neighborhood.ngbR.Min(), minNgbG = neighborhood.ngbG.Min(), minNgbB = neighborhood.ngbB.Min();
+                    int maxNgbR = neighborhood.ngbR.Max(), maxNgbG = neighborhood.ngbG.Max(), maxNgbB = neighborhood.ngbB.Max();
+                    Color centraPixel = image.GetPixel(x, y);
+
+                    if (centraPixel.R < minNgbR) R = minNgbR;
+                    else if (centraPixel.R > maxNgbR) R = maxNgbR;
+                    else R = centraPixel.R;
+
+                    if (centraPixel.G < minNgbG) G = minNgbG;
+                    else if (centraPixel.G > maxNgbG) G = maxNgbG;
+                    else G = centraPixel.G;
+
+                    if (centraPixel.B < minNgbB) B = minNgbB;
+                    else if (centraPixel.B > maxNgbB) B = maxNgbB;
+                    else B = centraPixel.B;
+
+                    Color colorOut = Color.FromArgb(R, G, B);
+                    outputImage.SetPixel(x, y, colorOut);
+                }
+            }
+
+            return outputImage;
         }
 
         private Bitmap filterOrd(Bitmap image, int num)
@@ -1817,7 +1882,7 @@ namespace furi_imageProcessing
                     Array.Sort(ngbG);
                     Array.Sort(ngbB);
 
-                    int R = ngbR[(kernelArea-1)/2], G = ngbG[(kernelArea - 1) / 2], B = ngbB[(kernelArea - 1) / 2];
+                    int R = ngbR[(kernelArea-1) / 2], G = ngbG[(kernelArea - 1) / 2], B = ngbB[(kernelArea - 1) / 2];
 
                     Color colorOut = Color.FromArgb(R, G, B);
                     outputImage.SetPixel(x, y, colorOut);
@@ -1831,9 +1896,9 @@ namespace furi_imageProcessing
         {
             Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
 
-            /*int kernelArea = filterDimension * filterDimension;
+            int kernelArea = filterDimension * filterDimension;
 
-            int[] kernel = new int[kernelArea];
+            /*int[] kernel = new int[kernelArea];
 
             for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
 
@@ -1844,7 +1909,7 @@ namespace furi_imageProcessing
 
                     Neighborhood neighborhood = calculateNeighborhood(image, x, y);
 
-                    int R = (neighborhood.ngbR.Sum()/9), G = (neighborhood.ngbG.Sum()/9), B = (neighborhood.ngbB.Sum()/9);
+                    int R = (neighborhood.ngbR.Sum()/kernelArea), G = (neighborhood.ngbG.Sum()/kernelArea), B = (neighborhood.ngbB.Sum()/kernelArea);
 
                     Color colorOut = Color.FromArgb(R, G, B);
                     outputImage.SetPixel(x, y, colorOut);
@@ -2092,5 +2157,7 @@ namespace furi_imageProcessing
 
                 return new Neighborhood { ngbR = ngbR, ngbG = ngbG, ngbB = ngbB };
         }
+
+        
     }
 }
