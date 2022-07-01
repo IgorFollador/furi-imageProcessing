@@ -1508,10 +1508,10 @@ namespace furi_imageProcessing
                 }
             }
 
-            chart1.Series["Series1"].Points.Clear();
+            chart1.Series["QtyPixels"].Points.Clear();
             for (int i = 1; i < 256; i++)
             {
-                chart1.Series["Series1"].Points.AddXY(i, histCount[i]);
+                chart1.Series["QtyPixels"].Points.AddXY(i, histCount[i]);
             }
         }
 
@@ -1541,54 +1541,44 @@ namespace furi_imageProcessing
             int[] cfdG = new int[256];
             int[] cfdB = new int[256];
 
-            for (int i = 0; i < 256; i++)
-            {
-                if (i == 0)
-                {
-                    cfdR[i] = histCountR[0];
-                    cfdG[i] = histCountG[0];
-                    cfdB[i] = histCountB[0];
-                }
-                else
-                {
-                    cfdR[i] = histCountR[i] + histCountR[i - 1];
-                    cfdG[i] = histCountG[i] + histCountG[i - 1];
-                    cfdB[i] = histCountB[i] + histCountB[i - 1];
-                }
+            cfdR[0] = histCountR[0];
+            cfdG[0] = histCountG[0];
+            cfdB[0] = histCountB[0];
 
-                if (cfdR[i] < 0) cfdR[i] = 0;
-                else if (cfdR[i] > 255) cfdR[i] = 255;
-                if (cfdG[i] < 0) cfdG[i] = 0;
-                else if (cfdG[i] > 255) cfdG[i] = 255;
-                if (cfdB[i] < 0) cfdB[i] = 0;
-                else if (cfdB[i] > 255) cfdB[i] = 255;
+            for (int i = 1; i < 256; i++)
+            {
+                cfdR[i] = histCountR[i] + cfdR[i - 1];
+                cfdG[i] = histCountG[i] + cfdG[i - 1];
+                cfdB[i] = histCountB[i] + cfdB[i - 1];   
             }
 
             int minCfdR = cfdR.Min();
-
             int minCfdG = cfdG.Min();
-
-            int minCfdB = cfdG.Min();
+            int minCfdB = cfdB.Min();
 
             int imageArea = image.Width * image.Height;
 
             //Step 3 - Calculate New Color
+            int[] hR = new int[256];
+            int[] hG = new int[256];
+            int[] hB = new int[256];
+
+            for (int i = 0; i < 256; i++)
+            {
+                hR[i] = ((cfdR[i] - minCfdR) / (imageArea - minCfdR)) * 254;
+                hG[i] = ((cfdG[i] - minCfdG) / (imageArea - minCfdG)) * 254;
+                hB[i] = ((cfdB[i] - minCfdB) / (imageArea - minCfdB)) * 254;
+            }
+
             for (int x = 0; x < image.Width; x++)
             {
                 for (int y = 0; y < image.Height; y++)
                 {
                     Color colorPixel = image.GetPixel(x, y);
 
-                    int R = ((cfdR[colorPixel.R] - minCfdR) / (imageArea - minCfdR)) * 254;
-                    int G = ((cfdG[colorPixel.G] - minCfdG) / (imageArea - minCfdG)) * 254;
-                    int B = ((cfdB[colorPixel.B] - minCfdB) / (imageArea - minCfdB)) * 254;
-
-                    if (R < 0) R = 0;
-                    else if (R > 255) R = 255;
-                    if (G < 0) G = 0;
-                    else if (G > 255) G = 255;
-                    if (B < 0) B = 0;
-                    else if (B > 255) B = 255;
+                    int R = hR[colorPixel.R];
+                    int G = hG[colorPixel.G];
+                    int B = hB[colorPixel.B];
 
                     Color colorEq = Color.FromArgb(R, G, B);
 
@@ -1597,7 +1587,7 @@ namespace furi_imageProcessing
                 }
             }
 
-            //Calculate Histogram Eqaulized
+            //Calculate Histogram Equalized
             int[] histEqCount = new int[256];
 
             Bitmap imageGrayScale = toGray(imageEqualized);
@@ -1613,18 +1603,30 @@ namespace furi_imageProcessing
                 }
             }
 
-            chart2.Series["Series1"].Points.Clear();
+            chart2.Series["QtyPixels"].Points.Clear();
             for (int i = 1; i < 256; i++)
             {
-                chart2.Series["Series1"].Points.AddXY(i, histEqCount[i]);
+                chart2.Series["QtyPixels"].Points.AddXY(i, histEqCount[i]);
             }
 
             return imageEqualized;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnEq_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                verifyImage(img1);
+                imgR = equalizeImage(img1);
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Mirror image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void btnEqA_Click(object sender, EventArgs e)
@@ -1721,6 +1723,73 @@ namespace furi_imageProcessing
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void btnFilterOrd_Click(object sender, EventArgs e)
+        {
+            int neighborhoodSize = filterDimension * filterDimension;
+            string txt = txtFilterOrd.Text;
+            if (txt == "") txt = neighborhoodSize.ToString();
+            else if (!int.TryParse(txt, out int num))
+            {
+                MessageBox.Show("Only numbers", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (num < 0 || num > neighborhoodSize)
+            {
+                MessageBox.Show("Please insert a value in range 0 - " +  neighborhoodSize, "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
+            try
+            {
+                imgR = filterOrd(img1, int.Parse(txt));
+                pbResult.Image = imgR;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    " image error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private Bitmap filterOrd(Bitmap image, int num)
+        {
+            Bitmap outputImage = new Bitmap(image.Width + 1, image.Height + 1);
+
+            int kernelArea = filterDimension * filterDimension;
+
+            if (num == kernelArea) num -= 1;
+
+            /*int[] kernel = new int[kernelArea];
+
+            for (int i = 0; i < kernelArea; i++) kernel[i] = 1;*/
+
+            for (int x = 1; x < (image.Width - 1); x++)
+            {
+                for (int y = 1; y < (image.Height - 1); y++)
+                {
+
+                    Neighborhood neighborhood = calculateNeighborhood(image, x, y);
+
+                    int[] ngbR = neighborhood.ngbR;
+                    int[] ngbG = neighborhood.ngbG;
+                    int[] ngbB = neighborhood.ngbB;
+
+                    Array.Sort(ngbR);
+                    Array.Sort(ngbG);
+                    Array.Sort(ngbB);
+
+                    int R = ngbR[num], G = ngbG[num], B = ngbB[num];
+
+                    Color colorOut = Color.FromArgb(R, G, B);
+                    outputImage.SetPixel(x, y, colorOut);
+                }
+            }
+
+            return outputImage;
         }
 
         private Bitmap filterMed(Bitmap image)
@@ -2023,7 +2092,5 @@ namespace furi_imageProcessing
 
                 return new Neighborhood { ngbR = ngbR, ngbG = ngbG, ngbB = ngbB };
         }
-
-        
     }
 }
