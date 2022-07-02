@@ -1563,13 +1563,6 @@ namespace furi_imageProcessing
             int[] hG = new int[256];
             int[] hB = new int[256];
 
-            /*for (int i = 0; i < 256; i++)
-            {
-                hR[i] = ((cfdR[i] - minCfdR) / (imageArea - minCfdR)) * 254;
-                hG[i] = ((cfdG[i] - minCfdG) / (imageArea - minCfdG)) * 254;
-                hB[i] = ((cfdB[i] - minCfdB) / (imageArea - minCfdB)) * 254;
-            }*/
-
             for (int x = 0; x < image.Width; x++)
             {
                 for (int y = 0; y < image.Height; y++)
@@ -1919,9 +1912,8 @@ namespace furi_imageProcessing
                 {
                     int R, G, B;
 
-                    Neighborhood neighborhood = calculateNeighborhood(image, x, y);
+                    Neighborhood neighborhood = calculateNeighborhoodNotCP(image, x, y);
 
-                    //neighborhood.ngbR.RemoveAt((kernelArea - 1) / 2);
                     int minNgbR = neighborhood.ngbR.Min(), minNgbG = neighborhood.ngbG.Min(), minNgbB = neighborhood.ngbB.Min();
                     int maxNgbR = neighborhood.ngbR.Max(), maxNgbG = neighborhood.ngbG.Max(), maxNgbB = neighborhood.ngbB.Max();
                     Color centraPixel = image.GetPixel(x, y);
@@ -2109,7 +2101,53 @@ namespace furi_imageProcessing
             public int[] ngbB { get; set; }
         }
 
-        private Neighborhood calculateNeighborhood(Bitmap image, int x, int y)
+        private Neighborhood calculateNeighborhoodNotCP(Bitmap image, int x, int y)
+        {
+            //Color[] neighborhood = new Color[filterDimension * filterDimension];
+            int[] ngbR = new int[(filterDimension * filterDimension)-1];
+            int[] ngbG = new int[(filterDimension * filterDimension) - 1];
+            int[] ngbB = new int[(filterDimension * filterDimension) - 1];
+
+            if (filterDimension == 3)
+            { 
+
+                //neighborhood red
+                ngbR[0] = image.GetPixel(x - 1, y - 1).R;
+                ngbR[1] = image.GetPixel(x - 1, y).R;
+                ngbR[2] = image.GetPixel(x - 1, y + 1).R;
+                ngbR[3] = image.GetPixel(x, y - 1).R;
+                ngbR[4] = image.GetPixel(x, y + 1).R;
+                ngbR[5] = image.GetPixel(x + 1, y - 1).R;
+                ngbR[6] = image.GetPixel(x + 1, y).R;
+                ngbR[7] = image.GetPixel(x + 1, y + 1).R;
+
+                //neighborhood green
+                ngbG[0] = image.GetPixel(x - 1, y - 1).G;
+                ngbG[1] = image.GetPixel(x - 1, y).G;
+                ngbG[2] = image.GetPixel(x - 1, y + 1).G;
+                ngbG[3] = image.GetPixel(x, y - 1).G;
+                ngbG[4] = image.GetPixel(x, y + 1).G;
+                ngbG[5] = image.GetPixel(x + 1, y - 1).G;
+                ngbG[6] = image.GetPixel(x + 1, y).G;
+                ngbG[7] = image.GetPixel(x + 1, y + 1).G;
+
+                //neighborhood blue
+                ngbB[0] = image.GetPixel(x - 1, y - 1).B;
+                ngbB[1] = image.GetPixel(x - 1, y).B;
+                ngbB[2] = image.GetPixel(x - 1, y + 1).B;
+                ngbB[3] = image.GetPixel(x, y - 1).B;
+
+                ngbB[4] = image.GetPixel(x, y + 1).B;
+
+                ngbB[5] = image.GetPixel(x + 1, y - 1).B;
+                ngbB[6] = image.GetPixel(x + 1, y).B;
+                ngbB[7] = image.GetPixel(x + 1, y + 1).B;
+            }
+
+            return new Neighborhood { ngbR = ngbR, ngbG = ngbG, ngbB = ngbB };
+        }
+
+            private Neighborhood calculateNeighborhood(Bitmap image, int x, int y)
         {
             //Color[] neighborhood = new Color[filterDimension * filterDimension];
             int[] ngbR = new int[filterDimension * filterDimension];

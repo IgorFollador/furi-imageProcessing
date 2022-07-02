@@ -9,3 +9,4 @@ D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Release\furi-i
 D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Release\furi-imageProcessing.csproj.CoreCompileInputs.cache
 D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Release\furi-imageProcessing.exe
 D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Release\furi-imageProcessing.pdb
+D:\Documents\GitHub\furi-imageProcessing\furi-imageProcessing\obj\Release\furi_imageProcessing.Form2.resources
